@@ -17,6 +17,6 @@ fig.update_layout(title="Original and Perturbed Rewards",
                     yaxis_title="Log(Reward)")
 
 # Export as html
-fig.to_html("docs/images/plots/reward_box_plot.html")
+fig.write_html("docs/images/plots/original_and_perturbed_rewards.html")
 
 fig.show()
