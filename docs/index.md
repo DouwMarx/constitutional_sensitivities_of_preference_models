@@ -21,6 +21,12 @@ Write in [plain English](https://www.plainenglish.co.uk/how-to-write-in-plain-en
 Here I will have a picture with three things: Standard preference model, compositional preference model, and our proposed method.
 I allready have started the diagram
 
+Insert the overview.drawio.html figure below
+
+<iframe src="images/diagrams/overview.drawio.html" width="800" height="600" frameborder="0"></iframe>
+
+
+
 ### **Introduction**
 
 *What question did you try to answer? You probably wrote this for Q4 of your project planning template.*
@@ -57,16 +63,8 @@ Ways in which the method is different from compositional preference models
 
 #### **Data**
 
+**The original Anthropic Dataset** 
 <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px"></iframe>
-
-<div style="width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-    <iframe 
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        style="width: 100%; height: 100%; position: absolute;" 
-        frameborder="0" 
-        allowfullscreen>
-    </iframe>
-</div>
 
 
 #### **Orthogonal fine tuning**
