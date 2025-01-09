@@ -18,6 +18,9 @@ augmented_dataset_list = get_original_and_perturbed_rewards_for_all_rows(augment
 # Convert the augmented dataset to a Dataset object
 augmented_dataset = Dataset.from_list(augmented_dataset_list)
 
+# Upload the dataset to the Hugging Face Hub
+augmented_dataset.push_to_hub("douwmarx/hh-rlhf-pm-constitutional-sensitivities")
+
 # Save as pandas dataframe
 augmented_dataset = augmented_dataset.to_pandas()
 augmented_dataset.to_csv("data/augmented_dataset.csv")
