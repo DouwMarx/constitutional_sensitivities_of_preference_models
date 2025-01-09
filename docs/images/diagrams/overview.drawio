@@ -1,0 +1,118 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.186 Electron/32.2.7 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="rFpVXXPWLTWle4nPhpix">
+    <mxGraphModel dx="2514" dy="1005" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DlRSlT_J5KFAQOdW5DLv-3" value="Preference model" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="319" y="1040" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DlRSlT_J5KFAQOdW5DLv-4" value="Compositional preference model" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="329" y="1140" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DlRSlT_J5KFAQOdW5DLv-5" value="Orthogonal compositional preference model" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="329" y="1330" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DlRSlT_J5KFAQOdW5DLv-6" value="Linear combination of features" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="429" y="1190" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DlRSlT_J5KFAQOdW5DLv-7" value="Linear combination of orthogonal features" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="429" y="1370" width="70" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-2" target="CZ8lGlM88uXbUpLBTasY-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-2" value="" style="shape=datastore;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-4" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Dataset&lt;/h1&gt;&lt;p&gt;Anthropic/hh-rlhf,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;harmless-base&quot;&lt;/span&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="180" y="130" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-6" value="" style="triangle;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="900" y="460" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-9" target="yo7FIEzDrIR8Dy8B-Dy1-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-9" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Preference model&lt;/h1&gt;&lt;p&gt;Ray2333/GRM-Llama3.2-3B-rewardmodel-ft&lt;br&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-120" y="650" width="259" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-10" target="CZ8lGlM88uXbUpLBTasY-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-10" value="Convert conversations to query-response pairs" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-12" target="CZ8lGlM88uXbUpLBTasY-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-12" value="" style="shape=datastore;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="410" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-13" target="CZ8lGlM88uXbUpLBTasY-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-13" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Query-Response pairs&lt;/h1&gt;&lt;p&gt;e.g. {&quot;query&quot;:&quot;Is it cruel to drown a fish?&quot;, &quot;response&quot;:&quot;No. Fish cannot drown&quot;}&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="180" y="400" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-17" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.book_journal;" parent="1" vertex="1">
+          <mxGeometry x="-329" y="140" width="41" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-18" target="CZ8lGlM88uXbUpLBTasY-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-18" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Constitution&lt;/h1&gt;&lt;p&gt;From&amp;nbsp;Constitutional AI: Harmlessness from AI Feedback&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-259" y="130" width="259" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-19" target="CZ8lGlM88uXbUpLBTasY-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-19" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Constitution Clause&lt;/h1&gt;&lt;p&gt;e.g. The response should be ethical&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-259" y="250" width="259" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-20" target="CZ8lGlM88uXbUpLBTasY-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-20" value="Perturb the response according to a clause in the constitution (Langraph)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-22" value="" style="shape=datastore;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-570" y="410" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-23" target="CZ8lGlM88uXbUpLBTasY-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-23" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Updated Query-Response pairs&lt;/h1&gt;&lt;p&gt;e.g. {&quot;query&quot;:&quot;Is it cruel to drown a fish?&quot;, &quot;response&quot;:&quot;No. Fish cannot drown&quot;, &quot;revised response&quot;:&quot;It is not good to harm animals&quot;}&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-490" y="400" width="370" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-29" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="860" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-30" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="900" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-31" value="moral" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="940" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-32" value="healthy" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="35" y="940" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-33" value="pm1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-140" y="870" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-34" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="970" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-35" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="970" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-37" value="pm2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-130" y="970" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-6" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Sensitivities to principles&lt;/h1&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="760" width="300" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
