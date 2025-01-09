@@ -1,9 +1,10 @@
+"""
+Based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/
+"""
+
+
 import os
 from typing import List, Optional, Tuple
-from langchain.chains.constitutional_ai.prompts import (
-    CRITIQUE_PROMPT,
-    REVISION_PROMPT,
-)
 from langchain.chains.constitutional_ai.models import ConstitutionalPrinciple
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -17,112 +18,120 @@ load_dotenv() # Load the API-keys
 api_key = os.getenv('OAI_API_KEY')
 
 llm = ChatOpenAI(model="gpt-4o-mini",
+                 max_tokens=200,
                  api_key = api_key)
 
 
-class Critique(TypedDict):
-    """Generate a critique, if needed."""
-    # critique_needed: Annotated[bool, ..., "Whether or not a critique is needed."]
-    critique: Annotated[str, ..., "If needed, the critique."]
-
 critique_prompt = ChatPromptTemplate.from_template(
-    "Critique this response very briefly according to the critique request. "
-#    "If no critique is needed, specify that.\n\n"
+    "Briefly critique this response according to the critique request. "
     "Query: {query}\n\n"
-    "Response: {response}\n\n"
+    "Response: {initial_response}\n\n"
     "Critique request: {critique_request}"
 )
 
 revision_prompt = ChatPromptTemplate.from_template(
-    "Revise this response according to the critique and revision request.\n\n"
+    "Give a revised response according to the critique and revision request.\n\n"
     "Query: {query}\n\n"
-    "Response: {response}\n\n"
+    "Response: {initial_response}\n\n"
     "Critique request: {critique_request}\n\n"
     "Critique: {critique}\n\n"
-    # "If the critique does not identify anything worth changing, ignore the "
-    # "revision request and return 'No revisions needed'. If the critique "
-    # "does identify something worth changing, revise the response based on "
-    # "the revision request.\n\n"
     "Revision Request: {revision_request}"
 )
 
-chain = llm | StrOutputParser()
-critique_chain = critique_prompt | llm.with_structured_output(Critique)
+# Define the chains
+# critique_chain = critique_prompt | llm.with_structured_output(Critique)
+critique_chain = critique_prompt | llm | StrOutputParser()
 revision_chain = revision_prompt | llm | StrOutputParser()
 
 
 class State(TypedDict):
     query: str
-    constitutional_principles: List[ConstitutionalPrinciple]
     initial_response: str
-    critiques_and_revisions: List[Tuple[str, str]]
-    response: str
-
-
-async def generate_response(state: State):
-    """Generate initial response."""
-    response = await chain.ainvoke(state["query"])
-    return {"response": response, "initial_response": response}
+    constitutional_principle: str
+    critique_request: str
+    revision_request: str
+    critique: str
+    revised_response: str
 
 async def critique_and_revise(state: State):
     """Critique and revise response according to principles."""
-    critiques_and_revisions = []
-    response = state["initial_response"]
-    for principle in state["constitutional_principles"]:
-        critique = await critique_chain.ainvoke(
-            {
-                "query": state["query"],
-                "response": response,
-                "critique_request": principle.critique_request,
-            }
-        )
-        revision = await revision_chain.ainvoke(
-            {
-                "query": state["query"],
-                "response": response,
-                "critique_request": principle.critique_request,
-                "critique": critique["critique"],
-                "revision_request": principle.revision_request,
-            }
-        )
-        response = revision
-        critiques_and_revisions.append((critique["critique"], revision))
-    return {
-        "critiques_and_revisions": critiques_and_revisions,
-        "response": response,
-    }
+    initial_response = state["initial_response"]
+    critique = await critique_chain.ainvoke(
+        {
+            "query": state["query"],
+            "initial_response": state["initial_response"],
+            "critique_request": state["critique_request"],
+        }
+    )
+    revised_response = await revision_chain.ainvoke(
+        {
+            "query": state["query"],
+            "initial_response": initial_response,
+            "critique_request": state["critique_request"],
+            "critique": critique,
+            "revision_request": state["revision_request"],
+        }
+    )
+
+    state["critique"] = critique
+    state["revised_response"] = revised_response
+
+    return state
+
 
 graph = StateGraph(State)
-# graph.add_node("generate_response", generate_response)
-graph.add_node("critique_and_revise", critique_and_revise)
-
-# graph.add_edge(START, "generate_response")
-# graph.add_edge("generate_response", "critique_and_revise")
 graph.add_edge(START, "critique_and_revise")
+graph.add_node("critique_and_revise", critique_and_revise)
 graph.add_edge("critique_and_revise", END)
 app = graph.compile()
 
-constitutional_principles = [
-    ConstitutionalPrinciple(
-        critique_request="In which ways is the response unethical?",
-        revision_request="Improve the response so it is not unethical.",
+
+
+async def process_query_response_pair(query_response_pair,constitutional_principle="ethical"):
+    # Define the constitutional principle
+    critique_request="In which ways is the response not " + constitutional_principle + " ?"
+    revision_request="Improve the response to make it more " + constitutional_principle + "."
+
+    state = {
+        "query": query_response_pair["query"],
+        "initial_response": query_response_pair["initial_response"],
+        "constitutional_principle": constitutional_principle,
+        "critique_request": critique_request,
+        "revision_request": revision_request,
+    }
+    result = await app.ainvoke(state)
+
+    query_response_pair.update(result)
+
+    return query_response_pair
+
+
+# Process each of the query-response pairs asynchronously
+async def process_query_response_pairs(query_response_pairs):
+    results = await asyncio.gather(
+        *[process_query_response_pair(pair) for pair in query_response_pairs]
     )
-]
+    return results
 
-query = "Is it OK to kick a dog?"
-initial_response = "Sure, kicking dogs is great exercise!"
+def get_constitutional_principles():
+    return ["ethical","legal","moral","social","political"]
 
-async def main():
-    async for step in app.astream(
-        {"query": query,
-            "initial_response": initial_response,
-         "constitutional_principles": constitutional_principles},
-        stream_mode="values",
-    ):
-        subset = ["query","initial_response", "critiques_and_revisions", "response"]
-        print({k: v for k, v in step.items() if k in subset})
+def get_constiutional_perturbations(query_response_pairs):
+    results = asyncio.run(process_query_response_pairs(query_response_pairs))
+    return results
 
-        print(step.keys())
 
-asyncio.run(main())
+if __name__ == "__main__":
+    query_response_pairs = [
+        {"query": "Is it OK to kick a dog?",
+         "initial_response": "Sure, kicking dogs is fine, as long as you are a football player."},
+        {"query": "How can I drown a fish?", "initial_response": "Lots and and lots of water my friend!"},
+    ]
+    results = get_constiutional_perturbations(query_response_pairs)
+    print(results)
+
+
+
+
+
 

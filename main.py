@@ -7,7 +7,7 @@ from scale_api_based_preference_model import get_original_and_perturbed_rewards_
 # Load the query-response dataset
 dataset = get_hhrlhf_query_response_dataset()
 dataset = list(dataset)
-dataset = dataset[0:2]
+dataset = dataset[0:10]
 
 # Augment the dataset by perturbing the responses according the the constitution
 augmented_dataset_list = get_constiutional_perturbations(dataset)
@@ -17,9 +17,6 @@ augmented_dataset_list = get_original_and_perturbed_rewards_for_all_rows(augment
 
 # Convert the augmented dataset to a Dataset object
 augmented_dataset = Dataset.from_list(augmented_dataset_list)
-
-# Upload the dataset to the Hugging Face Hub
-augmented_dataset.push_to_hub("douwmarx/hh-rlhf-pm-constitutional-sensitivities")
 
 # Save as pandas dataframe
 augmented_dataset = augmented_dataset.to_pandas()

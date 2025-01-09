@@ -22,25 +22,25 @@ def convert_to_message_format(text,label=None):
     return messages
 
 def extract_query_response_pairs(text,label=None):
-    # Use regex to split text into pairs of (Human, Assistant) interactions
+    # Split text into pairs of (Human, Assistant) interactions
     interactions = re.findall(r'Human: (.*?)\nAssistant: (.*?)(?=(?:\nHuman:|\Z))', text, re.DOTALL)
-
-    # Convert each interaction to the desired {query, response} format
-    query_response_pairs = [{'query': user.strip(), 'response': assistant.strip(),'label':label} for user, assistant in interactions]
+    # Convert to {query, response} format and keep the label of the preference
+    query_response_pairs = [{'query': user.strip(), 'initial_response': assistant.strip(),'label':label} for user, assistant in interactions]
 
     return query_response_pairs
 
 
-def get_hhrlhf_dataset():
+def get_hhrlhf_dataset(split="test", size="1"):
     # Get the harmfulness subset
     dataset = load_dataset("Anthropic/hh-rlhf",
                            data_dir="harmless-base",
-                           split="test[:5%]",
+                           # split="test[:5%]",
+                           split=f"{split}[:{size}%]",
                            keep_in_memory=True,
                            cache_dir="cache")
     return dataset
 
-def get_query_response_dataset():
+def get_hhrlhf_query_response_dataset():
     dataset = get_hhrlhf_dataset()
 
     all_response_pairs = []
@@ -63,7 +63,7 @@ def get_local_dataset():
     return dataset
 
 if __name__ == "__main__":
-    dataset = get_query_response_dataset()
+    dataset = get_hhrlhf_query_response_dataset()
 
 
     # dataset = get_hhrlhf_dataset()
