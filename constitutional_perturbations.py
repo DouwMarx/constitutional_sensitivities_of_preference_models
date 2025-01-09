@@ -1,8 +1,6 @@
 """
 Based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/
 """
-
-
 import os
 from typing import List, Optional, Tuple
 from langchain.chains.constitutional_ai.models import ConstitutionalPrinciple
@@ -42,7 +40,6 @@ revision_prompt = ChatPromptTemplate.from_template(
 # critique_chain = critique_prompt | llm.with_structured_output(Critique)
 critique_chain = critique_prompt | llm | StrOutputParser()
 revision_chain = revision_prompt | llm | StrOutputParser()
-
 
 class State(TypedDict):
     query: str
@@ -85,8 +82,6 @@ graph.add_node("critique_and_revise", critique_and_revise)
 graph.add_edge("critique_and_revise", END)
 app = graph.compile()
 
-
-
 async def process_query_response_pair(query_response_pair,constitutional_principle="ethical"):
     # Define the constitutional principle
     critique_request="In which ways is the response not " + constitutional_principle + " ?"
@@ -107,14 +102,21 @@ async def process_query_response_pair(query_response_pair,constitutional_princip
 
 
 # Process each of the query-response pairs asynchronously
-async def process_query_response_pairs(query_response_pairs):
+async def process_query_response_pairs(query_response_pairs, constitution_principles=None):
+    if constitution_principles is None:
+        constitution_principles = get_constitutional_principles()
+
+    # results = await asyncio.gather(
+    #     *[process_query_response_pair(pair) for pair in query_response_pairs]
+    # )
+    # For all query-response pairs and constitutions, process the pairs
     results = await asyncio.gather(
-        *[process_query_response_pair(pair) for pair in query_response_pairs]
+        *[process_query_response_pair(pair, constitutional_principle=principle) for pair in query_response_pairs for principle in constitution_principles]
     )
     return results
 
 def get_constitutional_principles():
-    return ["ethical","legal","moral","social","political"]
+    return ["ethical", "legal" , "moral"]
 
 def get_constiutional_perturbations(query_response_pairs):
     results = asyncio.run(process_query_response_pairs(query_response_pairs))

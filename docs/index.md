@@ -66,6 +66,9 @@ Ways in which the method is different from compositional preference models
 **The original Anthropic Dataset** 
 <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px"></iframe>
 
+**The dataset that I made from it**
+<iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-pm-constitutional-sensitivities/embed/viewer/default/train" width="100%" height="600px"></iframe>
+
 
 #### **Orthogonal fine tuning**
    For each clause in a constituation we
@@ -78,6 +81,10 @@ We will show a simple example on MNIST to demonstrate the concept.
 Possibly, I need a figure here with the mnist thing on the left, and the llm thing on the right 
 
 ### **Results**
+
+
+** Rewards before and after perturbation **
+<iframe src="images/plots/plotly_figure.html" width="800" height="600" frameborder="0"></iframe>
 
 *What happened when you did the methods above? You might include tables or graphs to show experiments’ outputs.*
 

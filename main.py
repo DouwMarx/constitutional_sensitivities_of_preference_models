@@ -7,7 +7,7 @@ from scale_api_based_preference_model import get_original_and_perturbed_rewards_
 # Load the query-response dataset
 dataset = get_hhrlhf_query_response_dataset()
 dataset = list(dataset)
-dataset = dataset[0:2]
+dataset = dataset[0:3]
 
 # Augment the dataset by perturbing the responses according the the constitution
 augmented_dataset_list = get_constiutional_perturbations(dataset)

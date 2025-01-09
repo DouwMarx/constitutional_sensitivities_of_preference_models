@@ -16,7 +16,8 @@ def get_rewards(messages, model="Ray2333/GRM-Llama3.2-3B-rewardmodel-ft"):
     messages = tokenizer.apply_chat_template(messages, tokenize=False)
 
     rewards = []
-    for message in tqdm(messages):
+    # for message in tqdm(messages):
+    for message in messages:
         response = hf_client.text_classification(message,model=model) # TODO: Confirm that the message-based input is the right way to do it
         rewards.append(response[0].score)
     return rewards
@@ -36,7 +37,7 @@ def get_original_and_perturbed_rewards_for_row(row,model="Ray2333/GRM-Llama3.2-3
 
 def get_original_and_perturbed_rewards_for_all_rows(rows,model="Ray2333/GRM-Llama3.2-3B-rewardmodel-ft"):
     updated_rows = []
-    for row in tqdm(rows):
+    for row in tqdm(rows, desc="Getting rewards for all rows"):
         updated_row = get_original_and_perturbed_rewards_for_row(row,model=model)
         updated_rows.append(updated_row)
     return updated_rows
