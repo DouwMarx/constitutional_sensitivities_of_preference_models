@@ -84,8 +84,6 @@ Possibly, I need a figure here with the mnist thing on the left, and the llm thi
 
 
 ** Rewards before and after perturbation **
-<iframe src="images/plots/original_and_perturbed_rewards.html" width="800" height="600" frameborder="0"></iframe>
-
 {% include original_and_perturbed_rewards.html %}
 
 

@@ -1,1 +1,10 @@
-theme: jekyll-theme-minimal
+# Site settings
+title: Constitutional sensitivities of preference models
+author:
+  name: Douw Marx
+  email: douwmarx@gmail.com
+description: "Project for Bluedot AI alignment course: https://aisafetyfundamentals.com/alignment/  ."
+url: "https://douwmarx.github.io/constitutional_sensitivities_of_preference_models/" # Your site's URL
+
+# Build settings
+theme: jekyll-theme-minima # You can change this to any other theme you prefer
