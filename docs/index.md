@@ -99,6 +99,8 @@ Possibly, I need a figure here with the mnist thing on the left, and the llm thi
 ** Rewards before and after perturbation **
 {% include original_and_perturbed_rewards.html %}
 
+{% include second_order_sobol_indices.html %}
+
 
 *What happened when you did the methods above? You might include tables or graphs to show experiments’ outputs.*
 
