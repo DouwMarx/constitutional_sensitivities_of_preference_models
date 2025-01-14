@@ -84,8 +84,7 @@ The models and their respective rankings on reward  bench as of 2025-01-13 are g
 <iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-pm-constitutional-sensitivities/embed/viewer/default/train" width="100%" height="600px"></iframe>
 
 **The collective constitutional AI dataset I used as constitution principles**
-<iframe src="https://huggingface.co/datasets/douwmarx/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px"></iframe>
-
+<iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px"></iframe>
 #### **Orthogonal feature re-scaling**
 
 #### **Preference prediction**
