@@ -7,4 +7,4 @@ description: "Project for Bluedot AI alignment course: https://aisafetyfundament
 url: "https://douwmarx.github.io/constitutional_sensitivities_of_preference_models/" # Your site's URL
 
 # Build settings
-theme: jekyll-theme-minima # You can change this to any other theme you prefer
+theme: minima # You can change this to any other theme you prefer
