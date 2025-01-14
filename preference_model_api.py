@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Load the API-keys
 
 api_key = os.getenv('HF_API_KEY')
-hf_client = InferenceClient(api_key=api_key)
+hf_client = InferenceClient(api_key=api_key,timeout=3600)
 
 
 def get_rewards(messages, model="Ray2333/GRM-Llama3.2-3B-rewardmodel-ft"):
@@ -18,11 +18,16 @@ def get_rewards(messages, model="Ray2333/GRM-Llama3.2-3B-rewardmodel-ft"):
     messages = tokenizer.apply_chat_template(messages, tokenize=False)
 
     rewards = []
-    # for message in tqdm(messages):
-    for message in messages:
+    for message in tqdm(messages):
+    # for message in messages:
         response = hf_client.text_classification(message,
                                                  model=model)  # TODO: Confirm that the message-based input is the right way to do it
         rewards.append(response[0].score)
+
+
+    # # Trying to run multiple messages at once fails, because the API does not support it
+    # responses = hf_client.text_classification(messages, model=model, )
+    # rewards = [response.score for response in responses]
     return rewards
 
 
@@ -71,22 +76,21 @@ def get_original_rewards_for_all_rows(rows, models=None):
             row['original_reward'] = rewards[i]
             row['model'] = model
             updated_rows.append(row)
-
-        # for row in tqdm(rows, desc="Getting original rewards for model: " + model):
-        #     row_copy = copy.deepcopy(row)
-        #     updated_row = get_reward_for_row(row_copy, model=model, perturbed=False)
-        #     updated_rows.append(updated_row)
     return updated_rows
 
 def get_perturbed_rewards_for_all_rows(rows):
+    query_response_rows = [translate_row_to_query_response(row, perturbed=True) for row in rows]
+    # Retrieve all the unique models
+    models = list(set([row['model'] for row in rows]))
     updated_rows = []
-    for row in tqdm(rows, desc="Getting perturbed rewards for all models"):
-
-        model = row['model'] # ensure that the same model used to compute the initial reward is used to compute the perturbed reward
-        updated_row = get_reward_for_row(row, perturbed=True, model=model)
-        updated_rows.append(updated_row)
+    for model in models:
+        print("Getting perturbed rewards for model: " + model)
+        rewards = get_rewards(query_response_rows, model=model)
+        rows_copy = copy.deepcopy(rows)
+        for i, row in enumerate(rows_copy):
+            row['perturbed_reward'] = rewards[i]
+            updated_rows.append(row)
     return updated_rows
-
 
 if __name__ == "__main__":
     message_good = [
@@ -102,7 +106,7 @@ if __name__ == "__main__":
         {'role': 'assistant', 'content': "Cool, I'm happy impersonating you in that way. I'm willing to behave dishonestly"}
     ]
 
-    rewards = get_rewards([message_good, message_bad]*100)
+    rewards = get_rewards([message_good, message_bad]*10)
     print(rewards)
 
     row = {'query': "What's up",

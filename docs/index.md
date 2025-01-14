@@ -61,6 +61,20 @@ Ways in which the method is different from compositional preference models
 |   |
 | :---- |
 
+
+#### **Selection of reward models**
+  Three sequence-classifier-based reward models were selected from [Reward Bench](https://huggingface.co/spaces/allenai/reward-bench)
+  Models are selected in the performance range of 70-80%, 80-90% and 90-100%.
+The models and their respective rankings on reward  bench as of 2025-01-13 are given in the following table.
+
+| Model                              | Reward Bench Score | Reward Bench Ranking | Safety Score | Reasoning Score |
+|:-----------------------------------| :----------------- | :------------------- | :----------- | :-------------- |
+| `some-person/some-model-hyperlink` | 0.75 | 1 | 0.8 | 0.7 |
+
+
+
+
+
 #### **Data**
 
 **The original Anthropic Dataset** 
@@ -69,9 +83,8 @@ Ways in which the method is different from compositional preference models
 **The dataset that I made from it**
 <iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-pm-constitutional-sensitivities/embed/viewer/default/train" width="100%" height="600px"></iframe>
 
-
-#### **Orthogonal fine tuning**
-   For each clause in a constituation we
+**The collective constitutional AI dataset I used as constitution principles**
+<iframe src="https://huggingface.co/datasets/douwmarx/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px"></iframe>
 
 #### **Orthogonal feature re-scaling**
 

@@ -1,22 +1,44 @@
-from datasets import Dataset
+from datasets import Dataset, DatasetInfo
 
-from constitutional_perturbations import get_constiutional_perturbations
+from constitutional_perturbations import get_constiutional_perturbations, get_collective_constitutional_ai_principles
 from data import get_hhrlhf_query_response_dataset
-from scale_api_based_preference_model import get_original_and_perturbed_rewards_for_all_rows
+from preference_model_api import get_original_rewards_for_all_rows, get_perturbed_rewards_for_all_rows
+import pickle
+
+models = [
+    "Ray2333/GRM-Llama3.2-3B-rewardmodel-ft",
+    "Ray2333/GRM-gemma2-2B-rewardmodel-ft",
+    # "Ray2333/reward-model-Mistral-7B-instruct-Unified-Feedback"
+]
+
+constitutional_principles = get_collective_constitutional_ai_principles(5)
 
 # Load the query-response dataset
 dataset = get_hhrlhf_query_response_dataset()
 dataset = list(dataset)
-dataset = dataset[0:3]
+dataset = dataset[0:10]
 
-# Augment the dataset by perturbing the responses according the the constitution
-augmented_dataset_list = get_constiutional_perturbations(dataset)
+# # Write the list of dataset to a temporary pickle file for quick reloading
+with open("data/dataset.pkl", "wb") as f:
+    pickle.dump(dataset, f)
 
-# Compute the rewards for the original and perturbed responses
-augmented_dataset_list = get_original_and_perturbed_rewards_for_all_rows(augmented_dataset_list)
+# Load the dataset from the pickle file
+with open("data/dataset.pkl", "rb") as f:
+    dataset = pickle.load(f)
+
+# Compute the rewards for the original responses
+data_with_original_rewards = get_original_rewards_for_all_rows(dataset, models=models)
+
+# Get the perturbed the responses
+data_with_perturbed_responses = get_constiutional_perturbations(data_with_original_rewards, constitutional_principles=constitutional_principles)
+
+# Compute the rewards for the perturbed responses
+data_with_perturbed_rewards = get_perturbed_rewards_for_all_rows(data_with_perturbed_responses)
 
 # Convert the augmented dataset to a Dataset object
-augmented_dataset = Dataset.from_list(augmented_dataset_list)
+
+info = DatasetInfo(description="A dataset of query-response pairs from the Antropic hhrlfh dataset with original and perturbed responses and the rewards for each response.")
+augmented_dataset = Dataset.from_list(data_with_perturbed_rewards, info=info)
 
 # Upload the dataset to the Hugging Face Hub
 augmented_dataset.push_to_hub("douwmarx/hh-rlhf-pm-constitutional-sensitivities")

@@ -6,7 +6,7 @@ from transformers import AutoTokenizer
 import matplotlib.pyplot as plt
 
 from data import get_hhrlhf_dataset
-from scale_api_based_preference_model import get_rewards
+from preference_model_api import get_rewards
 
 # Create the message template
 
