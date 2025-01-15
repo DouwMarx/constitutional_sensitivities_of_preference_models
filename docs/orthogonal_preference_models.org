@@ -8,6 +8,8 @@
  * cite:kwakLanguageDetoxificationAttributeDiscriminative2023 Makes use of projection module for the sake of language detoxification.
  * cite:lambertRewardBenchEvaluatingReward2024  The rewardbench paper and its github: https://github.com/allenai/reward-bench
  * cite:baiConstitutionalAIHarmlessness2022 The constitutional AI paper
+ * https://en.wikipedia.org/wiki/Variance-based_sensitivity_analysis Sobol indices
+ * cite:LouyangTrainingLanguageModels2022 The instruct gpt paper that does the rlhf bussiness after supervised fine tuning.
 
 * Other resources
  * https://github.com/dongyoung-go/CPM The github repo with the code
@@ -37,3 +39,8 @@ https://huggingface.co/datasets/Anthropic/hh-rlhf?row=12 # The Anthopic hh-rlhf 
  * https://python.langchain.com/api_reference/langchain/chains/langchain.chains.constitutional_ai.base.ConstitutionalChain.html#langchain.chains.constitutional_ai.base.ConstitutionalChain # New way to build a constitutional chain in langchain
  * https://pol.is/report/r3rwrinr5udrzwkvxtdkj # List of possible consitutions
          * Associated antrhopic blog post  https://www.anthropic.com/news/collective-constitutional-ai-aligning-a-language-model-with-public-input
+
+
+ Runpod
+ Kaggle service 
+ google

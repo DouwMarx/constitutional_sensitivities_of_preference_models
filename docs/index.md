@@ -54,6 +54,9 @@ Ways in which the method is different from compositional preference models
  - Here we choose to speak of a clause in a constritution rather than a feature like in the CPM framework
 
 
+cite:LouyangTrainingLanguageModels2022  The instuct-gpt paper that explain the rlhf proses and they also have a nice diagram that I might borrow
+
+
 ### **Methods**
 
 *What did you do to try to find an answer to your question? Provide enough detail so that others could repeat what you did. Consider linking to a GitHub repository to show the code you ran.*
@@ -72,8 +75,23 @@ The models and their respective rankings on reward  bench as of 2025-01-13 are g
 | `some-person/some-model-hyperlink` | 0.75 | 1 | 0.8 | 0.7 |
 
 
+#### **Constitutional Perturbations** 
+
+The prompt templates use to perturb the inputs to the preference models are given below.
+
+##### **Critique Prompt Template**
+```python
+   {% include prompt_templates/critique_prompt_template.py %}
+```
+
+##### **Revision Prompt Template**
+```python
+   {% include prompt_templates/revision_prompt_template.py %}
+```
 
 
+##### **Example of a perturbation**
+   {% include example_prompt.md %}
 
 #### **Data**
 
