@@ -9,9 +9,9 @@ models = [
     "Ray2333/GRM-Llama3.2-3B-rewardmodel-ft",
     "Ray2333/GRM-gemma2-2B-rewardmodel-ft",
 ]
-n_constitutional_principles = 10
+n_constitutional_principles = 5
 ccai_group = 0
-dataset_size = 500
+dataset_size = 100 # 500
 
 constitutional_principles = get_collective_constitutional_ai_principles(n_constitutional_principles, group=ccai_group)
 

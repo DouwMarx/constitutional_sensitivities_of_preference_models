@@ -1,4 +1,4 @@
-# Research Project Blog Post Template
+#closely related. Research Project Blog Post Template
 
 ## AI Safety Fundamentals: AI Alignment Course
 
@@ -64,6 +64,8 @@ cite:LouyangTrainingLanguageModels2022  The instuct-gpt paper that explain the r
 |   |
 | :---- |
 
+[Global sensitivity analysis](https://en.wikipedia.org/wiki/Variance-based_sensitivity_analysis)
+https://en.wikipedia.org/wiki/Morris_method MOris method as opposed to sobol method when  varying one effect at a time.
 
 #### **Selection of reward models**
   Three sequence-classifier-based reward models were selected from [Reward Bench](https://huggingface.co/spaces/allenai/reward-bench)
@@ -92,7 +94,9 @@ Based on https://python.langchain.com/docs/versions/migrating_chains/constitutio
 
 
 ##### **Example of a perturbation**
+```markdown
    {% include prompt_templates/example_prompt.md %}
+```
 
 #### **Data**
 
@@ -108,18 +112,17 @@ Based on https://python.langchain.com/docs/versions/migrating_chains/constitutio
 <table>
   <tr>
     <td width="50%">
-      <strong>The original Anthropic Dataset</strong><br>
+      <strong>Anthropic hh-rlhf</strong><br>
       <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px" frameborder="0"></iframe>
     </td>
     <td width="50%">
-      <strong>The collective constitutional AI dataset I used as constitution principles</strong><br>
+      <strong>Collective constitutional AI</strong><br>
       <iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px" frameborder="0"></iframe>
     </td>
   </tr>
 </table>
 
-
-**The dataset that I made from it**
+**Created Dataset**
 <iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-pm-constitutional-sensitivities/embed/viewer/default/train" width="100%" height="600px"></iframe>
 
 #### **Orthogonal feature re-scaling**
@@ -135,8 +138,11 @@ Possibly, I need a figure here with the mnist thing on the left, and the llm thi
 ** Rewards before and after perturbation **
 {% include original_and_perturbed_rewards.html %}
 
-{% include second_order_sobol_indices.html %}
+** Normalized mean effect **
+{% include mean_effect.html %}
 
+** Normalized std effect**
+{% include std_effect.html %}
 
 *What happened when you did the methods above? You might include tables or graphs to show experiments’ outputs.*
 
@@ -160,6 +166,8 @@ Possibly, I need a figure here with the mnist thing on the left, and the llm thi
     It is reasonable to expect that there might be some overlap in for example helplessness and harmlessness.
     * The method can be dangerous, since it could be used to remove properties that make models good for society.
     * The model that was used to perturb the promps was allready alligned, the perturbation is possibly not just usefull, but possibly also has its own ethical principles baked in of which kinds of perturbations are allowable. 
+
+   * The sensitivity analysis assumes independence of input features (presence of one constitutional principle does not affect the presence of another). This may not hold in practice, as some principles may be closely related.
 
 
 ### **Optional: Future work**

@@ -29,13 +29,13 @@ critique_prompt = ChatPromptTemplate.from_template(
 )
 
 revision_prompt = ChatPromptTemplate.from_template(
-    "Give a revised response according to the critique and revision request.\n\n"
+    "Give a revised response according to the critique and revision request. Replay with the revised response only.\n\n"
     "Query: {query}\n\n"
     "Response: {initial_response}\n\n"
     "Critique request: {critique_request}\n\n"
     "Critique: {critique}\n\n"
     "Revision Request: {revision_request}"
-    "Revised Response:"
+    "Revised Response:" # The should be appended to this prompt
 )
 
 # Define the chains
@@ -104,12 +104,19 @@ async def get_perturbed_response_for_query_response_pair(dataset_entry, constitu
 
 
 async def get_constitutional_perturbations_for_query_response_pairs(query_response_pairs, constitution_principles=None):
+    semaphore = asyncio.Semaphore(8)
     tasks = []
+
+    async def sem_task(pair, principle):
+        async with semaphore:
+            return await get_perturbed_response_for_query_response_pair(pair, principle)
+
     for principle in constitution_principles:
         for pair in query_response_pairs:
             pair_copy = copy.deepcopy(pair)
             principle_copy = copy.deepcopy(principle)
-            tasks.append(get_perturbed_response_for_query_response_pair(pair_copy, principle_copy))
+            # tasks.append(get_perturbed_response_for_query_response_pair(pair_copy, principle_copy))
+            tasks.append(sem_task(pair_copy, principle_copy))
     results = await tqdm.asyncio.tqdm.gather(*tasks, desc="Creating constitutional perturbations")
     return results
 
@@ -145,8 +152,8 @@ def write_example_prompts_to_file_for_reporting():
     lines = this_file.readlines()
     this_file.close()
 
-    critique_lines =lines[25:31]
-    revision_lines = lines[32:41]
+    critique_lines =lines[25:30]
+    revision_lines = lines[32:40]
 
     with open("docs/_includes/prompt_templates/critique_prompt_template.py", "w") as f:
         f.writelines(critique_lines)
@@ -165,7 +172,8 @@ def write_example_prompts_to_file_for_reporting():
     # Save key-value as markdown table
     with open("docs/_includes/prompt_templates/example_prompt.md", "w") as f:
         f.write(f"| Key | Value |\n")
-        f.write(f"| --- | --- |\n")
+        # f.write(f"| --- | --- |\n")
+        f.write(f"|:---|:---|\n")
         for key, value in result.items():
             if '\n' in value:
                 value = value.replace('\n', ' ')

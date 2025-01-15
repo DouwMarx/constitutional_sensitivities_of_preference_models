@@ -9,9 +9,8 @@
  * cite:lambertRewardBenchEvaluatingReward2024  The rewardbench paper and its github: https://github.com/allenai/reward-bench
  * cite:baiConstitutionalAIHarmlessness2022 The constitutional AI paper
  * https://en.wikipedia.org/wiki/Variance-based_sensitivity_analysis Sobol indices
- * cite:LouyangTrainingLanguageModels2022 The instruct gpt paper that does the rlhf bussiness after supervised fine tuning.
-
-
+ * cite:ouyangTrainingLanguageModels2022 The instruct gpt paper with rlhf bussiness after supervised fine tuning.
+ * cite:hommaImportanceMeasuresGlobal1996 Global sensitivity anaslys
 * Other resources
 ** Compositional preference models
  * https://github.com/dongyoung-go/CPM The github repo with the code
