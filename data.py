@@ -30,7 +30,7 @@ def extract_query_response_pairs(text,label=None):
     return query_response_pairs
 
 
-def get_hhrlhf_dataset(split="test", size="1"):
+def get_hhrlhf_dataset(split="test", size="100"):
     # Get the harmfulness subset
     dataset = load_dataset("Anthropic/hh-rlhf",
                            data_dir="harmless-base",
@@ -43,18 +43,27 @@ def get_hhrlhf_dataset(split="test", size="1"):
 def get_hhrlhf_query_response_dataset():
     dataset = get_hhrlhf_dataset()
 
-    all_response_pairs = []
-    for label in ["chosen", "rejected"]:
-        for example in dataset:
-            # Extract query-response pairs from the example
-            query_response_pairs = extract_query_response_pairs(example[label],label =label)
+    # Use both chosen and rejected
+    # all_response_pairs = []
+    # for label in ["chosen", "rejected"]:
+    #     for example in dataset:
+    #         # Extract query-response pairs from the example
+    #         query_response_pairs = extract_query_response_pairs(example[label],label =label)
+    #         # Add the pairs to the list
+    #         all_response_pairs += query_response_pairs
 
-            # Add the pairs to the list
-            all_response_pairs += query_response_pairs
+    # Use only rejected
+    all_response_pairs = []
+    for example in dataset:
+        # Extract query-response pairs from the example
+        query_response_pairs = extract_query_response_pairs(example["rejected"],label ="rejected")
+        # Add the pairs to the list
+        all_response_pairs += query_response_pairs
 
     # Create a new dataset from the extracted pairs
     new_dataset = Dataset.from_list(all_response_pairs)
 
+    new_dataset = new_dataset.shuffle(seed=0) # Shuffle the dataset entries
     return new_dataset
 
 

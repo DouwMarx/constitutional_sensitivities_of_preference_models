@@ -1,6 +1,8 @@
 import asyncio
 import copy
 import os
+
+import numpy as np
 import requests
 from tqdm import tqdm
 from transformers import AutoTokenizer
@@ -18,16 +20,16 @@ def get_rewards(messages, model="Ray2333/GRM-Llama3.2-3B-rewardmodel-ft"):
     messages = tokenizer.apply_chat_template(messages, tokenize=False)
 
     rewards = []
-    for message in tqdm(messages):
-    # for message in messages:
-        response = hf_client.text_classification(message,
-                                                 model=model)  # TODO: Confirm that the message-based input is the right way to do it
-        rewards.append(response[0].score)
+    for message in tqdm(messages, desc="Getting rewards for model: " + model):
+        try:
+            response = hf_client.text_classification(message,
+                                                     model=model)  # TODO: Confirm that the message-based input have right input format
+            rewards.append(response[0].score)
+        except Exception as e:
+            print(f"Error processing message: {message}\nException: {e}, setting reward to NaN")
+            rewards.append(np.nan)
 
-
-    # # Trying to run multiple messages at once fails, because the API does not support it
-    # responses = hf_client.text_classification(messages, model=model, )
-    # rewards = [response.score for response in responses]
+    # Running multiple messages at once fails, (API does not support it)
     return rewards
 
 
@@ -68,8 +70,8 @@ def get_original_rewards_for_all_rows(rows, models=None):
 
     query_response_rows = [translate_row_to_query_response(row, perturbed=False) for row in rows]
     updated_rows = []
+    print("Getting original rewards")
     for model in models:
-        print("Getting original rewards for model: " + model)
         rewards = get_rewards(query_response_rows, model=model)
         rows_copy = copy.deepcopy(rows)
         for i, row in enumerate(rows_copy):
@@ -83,8 +85,8 @@ def get_perturbed_rewards_for_all_rows(rows):
     # Retrieve all the unique models
     models = list(set([row['model'] for row in rows]))
     updated_rows = []
+    print("Getting perturbed rewards")
     for model in models:
-        print("Getting perturbed rewards for model: " + model)
         rewards = get_rewards(query_response_rows, model=model)
         rows_copy = copy.deepcopy(rows)
         for i, row in enumerate(rows_copy):

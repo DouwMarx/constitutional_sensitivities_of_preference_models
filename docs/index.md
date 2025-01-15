@@ -78,6 +78,7 @@ The models and their respective rankings on reward  bench as of 2025-01-13 are g
 #### **Constitutional Perturbations** 
 
 The prompt templates use to perturb the inputs to the preference models are given below.
+Based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/
 
 ##### **Critique Prompt Template**
 ```python
@@ -91,18 +92,36 @@ The prompt templates use to perturb the inputs to the preference models are give
 
 
 ##### **Example of a perturbation**
-   {% include example_prompt.md %}
+   {% include prompt_templates/example_prompt.md %}
 
 #### **Data**
 
-**The original Anthropic Dataset** 
-<iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px"></iframe>
+[//]: # (**The original Anthropic Dataset** )
+
+[//]: # (<iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px"></iframe>)
+
+[//]: # ()
+[//]: # (**The collective constitutional AI dataset I used as constitution principles**)
+
+[//]: # (<iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px"></iframe>)
+
+<table>
+  <tr>
+    <td width="50%">
+      <strong>The original Anthropic Dataset</strong><br>
+      <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="600px" frameborder="0"></iframe>
+    </td>
+    <td width="50%">
+      <strong>The collective constitutional AI dataset I used as constitution principles</strong><br>
+      <iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px" frameborder="0"></iframe>
+    </td>
+  </tr>
+</table>
+
 
 **The dataset that I made from it**
 <iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-pm-constitutional-sensitivities/embed/viewer/default/train" width="100%" height="600px"></iframe>
 
-**The collective constitutional AI dataset I used as constitution principles**
-<iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px"></iframe>
 #### **Orthogonal feature re-scaling**
 
 #### **Preference prediction**

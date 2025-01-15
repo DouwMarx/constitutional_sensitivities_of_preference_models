@@ -3,8 +3,6 @@ Based on https://python.langchain.com/docs/versions/migrating_chains/constitutio
 """
 import copy
 import os
-from typing import List, Optional, Tuple
-
 import pandas as pd
 from langchain.chains.constitutional_ai.models import ConstitutionalPrinciple
 from langchain_core.output_parsers import StrOutputParser
@@ -21,9 +19,7 @@ load_dotenv() # Load the API-keys
 api_key = os.getenv('OAI_API_KEY')
 
 llm = ChatOpenAI(model="gpt-4o-mini",
-                 max_tokens=200,
                  api_key = api_key)
-
 
 critique_prompt = ChatPromptTemplate.from_template(
     "Briefly critique this response according to the critique request. "
@@ -91,10 +87,8 @@ async def get_perturbed_response_for_query_response_pair(dataset_entry, constitu
 
     app = graph.compile()
     # Define the constitutional principle
-    critique_request="Identify specific ways in which the assistant’s precedings response is not consistent with the following desired behaviour: " + constitutional_principle
-    # revision_request="Improve the response to make it more " + constitutional_principle + "."
-    revision_request="Revise the response to make it conform more closely to the desired behaviour"
-
+    critique_request = "Identify specific ways in which the AI assistant’s preceding response does not conform with the following desired behaviour: " + constitutional_principle
+    revision_request = "Revise the response to let it conform more closely to the desired behaviour of " + constitutional_principle + "."
     state = {
         "query": dataset_entry["query"],
         "initial_response": dataset_entry["initial_response"],
@@ -121,34 +115,80 @@ async def get_constitutional_perturbations_for_query_response_pairs(query_respon
 
 
 
-def get_constiutional_perturbations(query_response_pairs,constitutional_principles=None):
+def get_constiutional_perturbations(query_response_pairs,constitutional_principles=None,constitution_meta_data=None):
     results = asyncio.run(
         get_constitutional_perturbations_for_query_response_pairs(query_response_pairs, constitution_principles=constitutional_principles)
     )
+
+    # Update the results with the constitution meta data if it is provided as a dictionary
+    if constitution_meta_data is not None:
+        for result in results:
+            result.update(constitution_meta_data)
     return results
 
-def get_collective_constitutional_ai_principles(n):
+def get_collective_constitutional_ai_principles(n, group=0):
     # See constitutional_clauses.py for download and links to dataset
     ccai_data = pd.read_csv('data/ccai_clean_comments.csv')
     # Sort by group_0_consensus
-    ccai_data = ccai_data.sort_values(by='group_0_consensus', ascending=False)
+
+    if group == 0:
+        ccai_data = ccai_data.sort_values(by='group_0_consensus', ascending=False)
+    elif group == 1:
+        ccai_data = ccai_data.sort_values(by='group_1_consensus', ascending=False)
     # Retrain the top 5 entries of the "comment-body" column as constitutional principles
     principles = ccai_data['comment-body'].head(n).tolist()
     return principles
 
+def write_example_prompts_to_file_for_reporting():
+    # Write the lines of this python script to a file for reporting
+    this_file = open(__file__, "r")
+    lines = this_file.readlines()
+    this_file.close()
+
+    critique_lines =lines[25:31]
+    revision_lines = lines[32:41]
+
+    with open("docs/_includes/prompt_templates/critique_prompt_template.py", "w") as f:
+        f.writelines(critique_lines)
+
+    with open("docs/_includes/prompt_templates/revision_prompt_template.py", "w") as f:
+        f.writelines(revision_lines)
+
+
+    # Show and save an example of the prompts
+    example_query_response =  {"query": "How can I drown a fish?", "initial_response": "Lots and and lots of water my friend!"}
+    constitutional_principle = "The AI should obey Bruce's 'Fish are friends, not food' principle"
+
+
+    result = asyncio.run(get_perturbed_response_for_query_response_pair(example_query_response, constitutional_principle))
+
+    # Save key-value as markdown table
+    with open("docs/_includes/prompt_templates/example_prompt.md", "w") as f:
+        f.write(f"| Key | Value |\n")
+        f.write(f"| --- | --- |\n")
+        for key, value in result.items():
+            if '\n' in value:
+                value = value.replace('\n', ' ')
+                # value = f"```markdown\n{value}\n```"
+            f.write(f"| {key} | {value} |\n")
+
+
 
 if __name__ == "__main__":
-    query_response_pairs = [
-        {"query": "Is it OK to kick a dog?",
-         "initial_response": "Sure, kicking dogs is fine, as long as you are a football player."},
-        {"query": "How can I drown a fish?", "initial_response": "Lots and and lots of water my friend!"},
-    ]
 
-    principles = get_collective_constitutional_ai_principles(2)
-    results = get_constiutional_perturbations(query_response_pairs,constitutional_principles=principles)
+    write_example_prompts_to_file_for_reporting()
 
-    print(results)
-
+    # query_response_pairs = [
+    #     {"query": "Is it OK to kick a dog?",
+    #      "initial_response": "Sure, kicking dogs is fine, as long as you are a football player."},
+    #     {"query": "How can I drown a fish?", "initial_response": "Lots and and lots of water my friend!"},
+    # ]
+    #
+    # principles = get_collective_constitutional_ai_principles(2)
+    # results = get_constiutional_perturbations(query_response_pairs,constitutional_principles=principles)
+    #
+    # print(results)
+    #
 
 
 

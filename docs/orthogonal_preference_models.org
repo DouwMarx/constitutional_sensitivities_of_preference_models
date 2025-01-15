@@ -11,25 +11,34 @@
  * https://en.wikipedia.org/wiki/Variance-based_sensitivity_analysis Sobol indices
  * cite:LouyangTrainingLanguageModels2022 The instruct gpt paper that does the rlhf bussiness after supervised fine tuning.
 
+
 * Other resources
+** Compositional preference models
  * https://github.com/dongyoung-go/CPM The github repo with the code
+ Resources: https://openreview.net/forum?id=tiiAzqi6Ol
 
-Resources: https://openreview.net/forum?id=tiiAzqi6Ol
+  Read these that cite the cpms
+  https://arxiv.org/abs/2410.20290
+  https://arxiv.org/abs/2406.07295
+  https://dspace.mit.edu/handle/1721.1/156747
 
-Read these that cite the cpms
-https://arxiv.org/abs/2410.20290
-https://arxiv.org/abs/2406.07295
-https://dspace.mit.edu/handle/1721.1/156747
+** Reward models
+    https://huggingface.co/Ray2333/GRM-Llama3.2-3B-rewardmodel-ft For example use this model with different viewpoints.
+    https://huggingface.co/Skywork/Skywork-Reward-Gemma-2-27B-v0.2
 
-
-# Reward Models
-https://huggingface.co/Ray2333/GRM-Llama3.2-3B-rewardmodel-ft For example use this model with different viewpoints.
-https://huggingface.co/Skywork/Skywork-Reward-Gemma-2-27B-v0.2
-
-# Datasets
+** Datasets
+*** Candidates
 https://huggingface.co/datasets/HuggingFaceH4/cai-conversation-harmless/viewer/default/train_sft?row=2 # Conversational harmlessness dataset
 https://huggingface.co/datasets/pbevan11/ultrafeedback_binarized_multilingual/viewer/default/train_sft?sort[column]=language&sort[direction]=desc # Multilingual preference dataset
+
+*** Antrhopic hhrlhf
+
 https://huggingface.co/datasets/Anthropic/hh-rlhf?row=12 # The Anthopic hh-rlhf dataset
+
+*** Collective consitutional AI
+https://github.com/saffronh/ccai
+https://www.anthropic.com/news/collective-constitutional-ai-aligning-a-language-model-with-public-input
+https://pol.is/report/r3rwrinr5udrzwkvxtdkj
 
 
 * Possible tools

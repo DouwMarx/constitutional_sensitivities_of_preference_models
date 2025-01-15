@@ -48,3 +48,4 @@ print("Reward for message 2: ", reward[0].score)
 # 1) What does message based mean vs tokenized
 # 2) Does this tokenizer actually do tokenization?
 # 3) Recommendations for inference of more samples: Should I setup an inference endpoint? How if not automatically available?
+# 4) Does the general idea seam useful/make sense?
