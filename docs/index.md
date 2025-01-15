@@ -95,8 +95,10 @@ Based on https://python.langchain.com/docs/versions/migrating_chains/constitutio
 
 ##### **Example of a perturbation**
 ```markdown
-   {% include prompt_templates/example_prompt.md %}
+{% include prompt_templates/example_prompt.md %}
 ```
+
+{% include prompt_templates/example_prompt.md %}
 
 #### **Data**
 

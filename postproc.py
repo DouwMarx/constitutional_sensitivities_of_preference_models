@@ -74,6 +74,7 @@ for model in models:
     model_data = sobol_df[sobol_df["model"] == model]
     y = model_data["mean_effect"]
     y_norm = y/y.sum()
+    # y_norm = (y-y.min())/(y.max()-y.min())
     fig.add_trace(go.Bar(x=model_data["principle"], y=y_norm, name=model))
 fig.update_layout(title="Normalized Mean effect",
                     xaxis_title="Constitutional Principle",
@@ -88,6 +89,7 @@ for model in models:
     model_data = sobol_df[sobol_df["model"] == model]
     y = model_data["std_effect"]
     y_norm = y/y.sum()
+    # y_norm = (y-y.min())/(y.max()-y.min())
     fig.add_trace(go.Bar(x=model_data["principle"], y=y_norm, name=model))
 fig.update_layout(title="Normalised standard deviation of effect",
                     xaxis_title="Constitutional Principle",
