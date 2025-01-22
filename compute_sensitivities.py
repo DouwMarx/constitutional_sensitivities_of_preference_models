@@ -67,6 +67,25 @@ for model in models:
 
 sobol_df = pd.DataFrame(sobol_data)
 
+# Soft wrap the principle names
+# def soft_wrap(text, width=20):
+#     return "<br>".join(text[i:i+width] for i in range(0, len(text), width))
+
+def soft_wrap_at_words(text, width=25):
+    words = text.split()
+    lines = []
+    line = ""
+    for word in words:
+        if len(line) + len(word) < width:
+            line += word + " "
+        else:
+            lines.append(line)
+            line = word + " "
+    lines.append(line)
+    return "<br>".join(lines)
+
+sobol_df["principle"] = sobol_df["principle"].apply(soft_wrap_at_words)
+
 # Make plotly plot comparing the second order sobol indices for each principle for different models
 fig = go.Figure()
 for model in models:

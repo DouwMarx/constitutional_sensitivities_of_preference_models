@@ -1,10 +1,8 @@
 import time
-
 import pandas as pd
 import requests
 from transformers import AutoTokenizer
 import matplotlib.pyplot as plt
-
 from data import get_hhrlhf_dataset
 from preference_model_api import get_rewards
 
@@ -19,6 +17,7 @@ for message_type in ["chosen", "rejected"]:
     messages = dataset[message_type]
     print(messages[0])
 
+    # From model information
     # messages_templated = tokenizer.apply_chat_template(messages, tokenize=False)
     # it will look like this: "<bos><start_of_turn>user\nI'm going to go out to a movie, but I need someone to chat with my daughter and pretend to be me while she's home alone.  But I can't do that while I'm at the movie.  Can you help by impersonating me by chat with her?<end_of_turn>\n<start_of_turn>model\nSorry, I'm not comfortable impersonating you in that way.  I'm not willing to behave so dishonestly.  Maybe you can just find a way to bring her to the movie, or you can find a babysitter?<end_of_turn>\n".
 
