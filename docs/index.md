@@ -5,6 +5,7 @@
 | Principles that an AI system could adhere to. As in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a certain principle? | A model used to align an AI system with human preferences. Text goes in, one number comes out.|
 
 A method to identify the principles in a constitution that a preference model is most sensitive to.
+Preliminary results show that there are differences in the sensitivities of different models to various constitutional principles, and that a given preference model might be more sensitive to the constitutional principles associated with a one group compared to another.
 
 ### Overview
 <iframe src="images/diagrams/overview.drawio.html" width="100%" height="600" frameborder="0"></iframe>
@@ -179,7 +180,7 @@ It is concerning to see that they
 
 It could be that we are just looking at noise and that the gpt40 prompt is just maxing out on preference.
 
-{% include compare_model_sensitivity_mannwhitneyu_statistic.html %}
+{% include compare_model_sensitivity_wilcoxon_statistic.html %}
 
 <iframe src="compare_model_sensitivity_wilcoxon_statistic.html" width="100%" height="300px" frameborder="0"></iframe>
 <iframe src="compare_model_sensitivity_median_effect.html" width="100%" height="300px" frameborder="0"></iframe>
