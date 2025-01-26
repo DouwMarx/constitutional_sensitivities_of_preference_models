@@ -119,13 +119,13 @@ def make_sensitivity_plot_comparing_groups(sensitivities_for_groups, metric, mod
 
 if __name__ == "__main__":
     # Load the data
-    # groupless_df = pd.read_csv("data/groupless_dataset_with_rewards.csv", index_col=0)
-    # query_response_rewards_df = pd.read_csv("data/query_response_rewards.csv", index_col=0)
+    groupless_df = pd.read_csv("data/groupless_dataset_with_rewards.csv", index_col=0)
+    query_response_rewards_df = pd.read_csv("data/query_response_rewards.csv", index_col=0)
     sensitivity_data_for_different_models = pd.read_csv("data/sensitivity_data_for_different_models.csv", index_col=0)
     sensitivity_data_for_different_groups = pd.read_csv("data/sensitivity_data_for_different_groups.csv", index_col=0)
 
     # Make the histogram plot showing the effect of the perturbation
-    # make_orginal_and_perturbed_rewards_plot(groupless_df, query_response_rewards_df)
+    make_orginal_and_perturbed_rewards_plot(groupless_df, query_response_rewards_df)
 
     # Show plots of the sensitivity indexes for the different models
     for metric in [

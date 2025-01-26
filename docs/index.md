@@ -76,6 +76,8 @@ I call this a constitutional perturbation, following terminology from sensitivit
 ##### RLHF prompt dataset
 <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="300px" frameborder="0"></iframe>
 I used a part of the test set that I randomly shuffled
+Dataset
+Anthropic/hh-rlhf, "harmless-base" test data. I used the rejected samples, thinking that this would lead to the largest possible range over which the sensitivities can be measured. 
 
 ##### Collective constitutional AI dataset  
 <iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="600px" frameborder="0"></iframe>
