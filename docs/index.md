@@ -174,28 +174,6 @@ Notice that the y-axis has been clipped to amplify the differences between the d
 {% include compare_model_sensitivity_mean_effect.html %}
 
 ### Other sensitivity metrics
-
-[//]: # (Now we include the other plotly plots, but they will not have the same height. They will be smaller.)
-
-[//]: # ({% include compare_model_sensitivity_median_effect.html %})
-
-[//]: # ()
-[//]: # ({% include compare_model_sensitivity_std_effect.html %})
-
-[//]: # ()
-[//]: # ({% include compare_model_sensitivity_mean_percentile_effect.html %})
-
-[//]: # ()
-[//]: # ({% include compare_model_sensitivity_median_percentile_effect.html %})
-
-[//]: # ()
-[//]: # ({% include compare_model_sensitivity_std_percentile_effect.html %})
-
-[//]: # ()
-[//]: # ({% include compare_model_sensitivity_wilcoxon_statistic.html %})
-
-[//]: # ()
-
 The results for some of the other sensitivity metrics are shown below.
 It is concerning to see that they 
 
