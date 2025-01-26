@@ -1,10 +1,9 @@
 import time
 import pandas as pd
-import requests
 from transformers import AutoTokenizer
 import matplotlib.pyplot as plt
-from data import get_hhrlhf_dataset
-from preference_model_api import get_rewards
+from src.data.process_hhrlhf_data import get_hhrlhf_dataset
+from src.preproc.preference_model_api import get_rewards
 
 # Create the message template
 
