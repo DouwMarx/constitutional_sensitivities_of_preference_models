@@ -36,7 +36,15 @@ def make_orginal_and_perturbed_rewards_plot(groupless_df, query_response_rewards
 
     fig.update_layout(title="Original and Perturbed Rewards",
                       xaxis_title="log(Reward)",
-                      yaxis_title="Probability Density")
+                      yaxis_title="Probability Density",
+                      legend = dict(
+                          yanchor="top",
+                          y=0.99,
+                          xanchor="right",
+                          x=0.99,
+                      orientation = "h"
+                        )
+                        )
     # Export as html
     fig.write_html("docs/_includes/original_and_perturbed_rewards.html")
     fig.show()
@@ -73,8 +81,15 @@ def make_sensitivity_plot_comparing_models(sensitivity_data_for_different_models
 
     fig.update_layout(title=f"Normalised sensitivity index: {underscore_to_sentence_case(metric)}",
                       xaxis_title="Constitutional Principle",
-                      yaxis_title=f"Normalised sensitivity index: {underscore_to_sentence_case(metric)}",
-                        )
+                      yaxis_title=f"Sensitivity index: {underscore_to_sentence_case(metric)}",
+                      legend = dict(
+                          yanchor="top",
+                          y=0.99,
+                          xanchor="right",
+                          x=0.99,
+                          orientation = "h"
+                      )
+                      )
     fig.update_yaxes(
         range=[0.9*plot_min, 1.05*plot_max],
         # range=[0.5, 0.6],
@@ -109,7 +124,7 @@ def make_sensitivity_plot_comparing_groups(sensitivities_for_groups, metric, mod
                   )
     fig.update_layout(title=f"Normalised sensitivity index: {underscore_to_sentence_case(metric)}",
                       xaxis_title="CCAI Group",
-                      yaxis_title=f"Normalised sensitivity index: {underscore_to_sentence_case(metric)}",
+                      yaxis_title=f"Sensitivity index: {underscore_to_sentence_case(metric)}",
                       barmode="stack"
                       )
 
