@@ -1,3 +1,4 @@
+# Constitutional Sensitivities of Preference Models
 ## TLDR
 
 | Constitutional                                                                                                                                 |sensitivities | of preference models                                                                           |
@@ -169,10 +170,9 @@ It is concerning to see that they
 It could be that we are just looking at noise and that the gpt40 prompt is just maxing out on preference.
 
 {% include compare_model_sensitivity_wilcoxon_statistic.html %}
+{% include compare_model_sensitivity_median_effect.html %}
+{% include compare_model_sensitivity_median_percentile_effect.html %}
 
-<iframe src="images/diagrams/compare_model_sensitivity_wilcoxon_statistic.html" width="100%" height="300px" frameborder="0"></iframe>
-<iframe src="images/diagrams/compare_model_sensitivity_median_effect.html" width="100%" height="300px" frameborder="0"></iframe>
-<iframe src="images/diagrams/compare_model_sensitivity_median_percentile_effect.html" width="100%" height="300px" frameborder="0"></iframe>
 
 The different sensitivity metrics generally lead to a similar ranking of the "importance" of the different principles.
 The mean should be robust to the non-linear nature of the preference model.
