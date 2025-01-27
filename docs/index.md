@@ -1,15 +1,21 @@
 # Constitutional Sensitivities of Preference Models
 ## TLDR
 
+This post proposes a method for identifying the principles in a constitution that a large language model (LLM) preference model (PM) is most sensitive to.
+
 | Constitutional                                                                                                                                 |sensitivities | of preference models                                                                           |
 |------------------------------------------------------------------------------------------------------------------------------------------------|---|------------------------------------------------------------------------------------------------|
 | Principles that an AI system should adhere to. Constitutional, as in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a certain principle? | A model used to align an AI system with human preferences. Text goes in; one number comes out. |
 
-A method to identify the principles in a constitution that a preference model is most sensitive to.
-Preliminary results show that there are differences in the sensitivities of different models to various constitutional principles, and that a given preference model might be more sensitive to the constitutional principles associated with a one group compared to another.
+Preliminary results show that different PM's have different sensitivities to various constitutional principles, and that one PM might be more sensitive to the constitutional principles associated with a one group of people compared to another.
 
 ## Introduction
 
+Reinforcement [learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that aligns with human preferences.
+
+
+The method involves training a reward model to evaluate the quality of the LLM's output, and then using the reward model to train the LLM to generate text that maximizes the reward.
+The reward model is trained on a dataset of human feedback, which consists of pairs of text prompts and human ratings of the quality of the generated text. The RLHF method has been shown to be effective at aligning LLMs with human preferences
 A common method used method for aligning Large Language Models (LLMs) with human preferences/values
 
 [//]: # (*What question did you try to answer? You probably wrote this for Q4 of your project planning template.*)
