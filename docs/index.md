@@ -14,6 +14,7 @@ Preliminary results show that PM's have different sensitivities to various const
 
 ### RLHF
 [Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that is consistent with our values and preferences.
+
 An important part of this process involves teaching the LLM to "behave", similar to how you would teach a puppy to behave:
 You ask for it paw - it gives its paw - you reward it with a treat.  
 You ask it not to rip up your couch - it rips up your couch - you give it a stern look (This is the third time this week Rover!).
