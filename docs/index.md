@@ -1,22 +1,53 @@
 # Constitutional Sensitivities of Preference Models
 ## TLDR
 
-This post proposes a method for identifying the principles in a constitution that a large language model (LLM) preference model (PM) is most sensitive to.
+[//]: # (This post proposes a method for identifying the principles in a constitution that a large language model &#40;LLM&#41; preference model &#40;PM&#41; is most sensitive to.)
+This post proposes a method for measuring the sensitivities of large language model preference models to different principles from a constitution.
 
-| Constitutional                                                                                                                                 |sensitivities | of preference models                                                                           |
-|------------------------------------------------------------------------------------------------------------------------------------------------|---|------------------------------------------------------------------------------------------------|
-| Principles that an AI system should adhere to. Constitutional, as in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a certain principle? | A model used to align an AI system with human preferences. Text goes in; one number comes out. |
+| Constitutional                                                                                                                                 | sensitivities                                                                                | of preference models                                                                           |
+|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| Principles that an AI system should adhere to. Constitutional, as in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a specific principle? | A model used to align an AI system with human preferences. Text goes in; one number comes out. |
 
-Preliminary results show that different PM's have different sensitivities to various constitutional principles, and that one PM might be more sensitive to the constitutional principles associated with a one group of people compared to another.
+Preliminary results show that PM's have different sensitivities to various constitutional principles, and that one PM might be more sensitive to the constitutional principles charasteristic on one group of people compared to another.
 
 ## Introduction
 
-Reinforcement [learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that aligns with human preferences.
+### RLHF
+[Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that is consistent with our values and preferences.
+An important part of this process involves teaching the LLM to "behave", similar to how you would teach a puppy to behave:
+You ask for it paw - it gives its paw - you reward it with a treat.  
+You ask it not to rip up your couch - it rips up your couch - you give it a stern look (This is the third time this week Rover!).
+
+The mapping between the dog's behaviour and reward you give it is super important.
+If you reward the dog for ripping up the couch and punishing it for giving its paw, you will end up with a dog that values very different things than you value.
+
+Now exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, "Hi. Bugger off!" should not.
+
+### What is a preference model?
+ Untamed LLM's can produce an overwhelming amount of undesirable behaviours that cannot possibly be corrected by a single human in their lifetime (Much like a puppy?).
+For this reason, preference models are used to do this on our behalf: Reward the LLM if it produces text that aligns with what we value, don't reward the LLM if it swears like a sailor. Akin to hiring a dog trainer to train your puppy on your behalf.
+I won't go into how preference models are created here, but I think that you will agree that that the preference should reward the things that you would reward.
+
+You can think of a preference model as a "function" that takes in some text, and spits out one number that is proportional to how preferable a given LLM's response was.
+```mermaid
+graph LR;
+    A["Hi. How can I help you"] --> B["Preference Model"];
+    B --> C["0.8"];
+```
+```mermaid
+graph LR;
+    A["Hi. Bugger off"] --> B["Preference Model"];
+    B --> C["0.1"];
+```
+
+### LLM Constitutions 
 
 
-The method involves training a reward model to evaluate the quality of the LLM's output, and then using the reward model to train the LLM to generate text that maximizes the reward.
-The reward model is trained on a dataset of human feedback, which consists of pairs of text prompts and human ratings of the quality of the generated text. The RLHF method has been shown to be effective at aligning LLMs with human preferences
-A common method used method for aligning Large Language Models (LLMs) with human preferences/values
+A key component  required for RLHF process is the preference model[^reward_model] (PM).
+
+[^reward_model]: The preference model is also known as the reward model.
+
+
 
 [//]: # (*What question did you try to answer? You probably wrote this for Q4 of your project planning template.*)
 
