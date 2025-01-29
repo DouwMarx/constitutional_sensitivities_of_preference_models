@@ -16,8 +16,8 @@ Preliminary results show that PM's have different sensitivities to various const
 [Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that is consistent with our values and preferences.
 
 An important part of this process involves teaching the LLM to "behave", similar to how you would teach a puppy to behave:
-You ask for it paw - it gives its paw - you reward it with a treat.  
-You ask it not to rip up your couch - it rips up your couch - you give it a stern look (This is the third time this week Rover!).
+Ask for paw - paw is given - reward with treat.  
+Ask not to rip up the couch - proceeds to rips up the couch - give stern look (This is the third time this week Rover!).
 
 The mapping between the dog's behaviour and reward you give it is super important.
 If you reward the dog for ripping up the couch and punishing it for giving its paw, you will end up with a dog that values very different things than you value.
@@ -39,6 +39,13 @@ graph LR;
 graph LR;
     A["Hi. Bugger off"] --> B["Preference Model"];
     B --> C["0.1"];
+```
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
 ```
 
 ### LLM Constitutions 
