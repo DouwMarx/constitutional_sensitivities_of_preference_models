@@ -41,15 +41,83 @@ graph LR;
     B --> C["0.1"];
 ```
 ```mermaid
-flowchart LR
-    a[Chapter 1] --> b[Chapter 2] --> c[Chapter 3]
-    c-->d[Using Ledger]
-    c-->e[Using Trezor]
-    d-->f[Chapter 4]
-    e-->f
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .flowchart {
+            display: flex;
+            align-items: center;
+        }
+        .box {
+            border: 2px solid black;
+            padding: 10px;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 10px solid black;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flowchart">
+        <div class="text">"text"</div>
+        <div class="arrow"></div>
+        <div class="box">Reward Model</div>
+        <div class="arrow"></div>
+        <div class="output">"0.1"</div>
+    </div>
+</body>
+</html>
 ```
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
+    </head>
+	 
+<body>
+ <pre><code class="language-mermaid">graph LR
+A--&gt;B
+</code></pre>
 
+<div class="mermaid">graph LR
+A--&gt;B
+</div>
+	
+</body>
+<script>
+var config = {
+    startOnLoad:true,
+    theme: 'forest',
+    flowchart:{
+            useMaxWidth:false,
+            htmlLabels:true
+        }
+};
+mermaid.initialize(config);
+window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+
+</html>
+```
 
 ### LLM Constitutions 
 
