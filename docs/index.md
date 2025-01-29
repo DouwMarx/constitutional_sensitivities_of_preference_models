@@ -47,7 +47,6 @@ graph LR;
       B-->D;
       C-->D;
 ```
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,9 +83,7 @@ graph LR;
     </div>
 </body>
 </html>
-```
 
-```html
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -117,7 +114,6 @@ window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 </script>
 
 </html>
-```
 
 ### LLM Constitutions 
 
