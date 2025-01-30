@@ -30,7 +30,7 @@ Therefore, preference models are used to judge LLM responses on our behalf: Rewa
 THis is akin to hiring a dog trainer to train your puppy on your behalf.
 Similar to how you trust your dog trainer not reward your puppy for ripping apart your couch, you need to trust your LLM reward model to reward your LLM to produce text that aligns with what you value.
 
-## Sensitivities of rewards models 
+## Sensitivities of models 
 In my home, dogs are not allowed on the couch.
 You can say that the way I reward puppy behaviour is "sensitive" to the principle "Dogs are not allowed on the couch".
 I am sure there are many dog trainers that are "insensitive" to this principle and that welcome their dogs on the couch.
@@ -46,6 +46,12 @@ You can think of a preference model as a "function" that takes in some text, and
    <head>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
     </head>
+	 
+<body>
+ <pre><code class="language-mermaid">graph LR
+A--&gt;B
+</code></pre>
+</body>
 
 <script>
 var config = {
