@@ -25,81 +25,28 @@ If you reward the dog for ripping up the couch and punishing it for giving its p
 Now exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, "Hi. Bugger off!" should not.
 
 ### What is a preference model?
- Untamed LLM's can produce an overwhelming amount of undesirable behaviours that cannot possibly be corrected by a single human in their lifetime (Much like a puppy?).
-For this reason, preference models are used to do this on our behalf: Reward the LLM if it produces text that aligns with what we value, don't reward the LLM if it swears like a sailor. Akin to hiring a dog trainer to train your puppy on your behalf.
-I won't go into how preference models are created here, but I think that you will agree that that the preference should reward the things that you would reward.
+During training, untamed LLM's produce an overwhelming load of incoherent slop that cannot be manually corrected in a single human lifetime (Like a puppy?).
+Therefore, preference models are used to judge LLM responses on our behalf: Reward the LLM if it produces text that aligns with what we value, don't reward the LLM if it swears like a sailor.
+THis is akin to hiring a dog trainer to train your puppy on your behalf.
+Similar to how you trust your dog trainer not reward your puppy for ripping apart your couch, you need to trust your LLM reward model to reward your LLM to produce text that aligns with what you value.
+
+## Sensitivities of rewards models 
+In my home, dogs are not allowed on the couch.
+You can say that the way I reward puppy behaviour is "sensitive" to the principle "Dogs are not allowed on the couch".
+I am sure there are many dog trainers that are "insensitive" to this principle and that welcome their dogs on the couch.
+This post is about hiring the right dog trainer for your puppy.
+
+
+Remember, in this elaborate metaphor, 
 
 You can think of a preference model as a "function" that takes in some text, and spits out one number that is proportional to how preferable a given LLM's response was.
-```mermaid
-graph LR;
-    A["Hi. How can I help you"] --> B["Preference Model"];
-    B --> C["0.8"];
-```
-```mermaid
-graph LR;
-    A["Hi. Bugger off"] --> B["Preference Model"];
-    B --> C["0.1"];
-```
-```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .flowchart {
-            display: flex;
-            align-items: center;
-        }
-        .box {
-            border: 2px solid black;
-            padding: 10px;
-            margin: 0 10px;
-            text-align: center;
-        }
-        .arrow {
-            width: 0;
-            height: 0;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            border-left: 10px solid black;
-            margin: 0 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="flowchart">
-        <div class="text">"text"</div>
-        <div class="arrow"></div>
-        <div class="box">Reward Model</div>
-        <div class="arrow"></div>
-        <div class="output">"0.1"</div>
-    </div>
-</body>
-</html>
 
 <!DOCTYPE html>
 <html lang="en">
    <head>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
     </head>
-	 
-<body>
- <pre><code class="language-mermaid">graph LR
-A--&gt;B
-</code></pre>
 
-<div class="mermaid">graph LR
-A--&gt;B
-</div>
-	
-</body>
 <script>
 var config = {
     startOnLoad:true,
@@ -114,6 +61,28 @@ window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 </script>
 
 </html>
+
+```mermaid
+graph LR;
+    A["''Hi. How can I help you?''"] --> B("Preference Model");
+    B --> C(0.8);
+
+    D["''Hi. Bugger off!''"] --> E("Preference Model");
+    E --> F(0.1);`
+```
+
+
+```mermaid
+graph LR;
+    A["Hi. How can I help you"] --> B["Preference Model"];
+    B --> C["0.8"];
+```
+```mermaid
+graph LR;
+    A["Hi. Bugger off"] --> B["Preference Model"];
+    B --> C["0.1"];
+```
+
 
 ### LLM Constitutions 
 
