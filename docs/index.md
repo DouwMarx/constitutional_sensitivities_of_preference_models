@@ -1,5 +1,3 @@
-
-
 {% include mermaid.html %}
 
 # Constitutional Sensitivities of Reward Models
@@ -30,15 +28,20 @@ Now exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, 
 
 ### Reward models
 During training, untamed LLM's produce an overwhelming load of undesirable slop that cannot manually be judged in a single human lifetime.
-So, we use rewards models to do this on our behalf.
+So, we use rewards models[^reward_models] to do this on our behalf.
 For the purpose of this work, a reward model is basically a function.
-Text goes in, one number comes out.
+Text goes in. 
+One number comes out.
+
+[^reward_model]: The reward model is also known as a preference model.
 
 <div class="mermaid" markdown="0" >
-    graph TD 
-    A[Client] -->|tcp_123| B(Load Balancer) 
-    B -->|tcp_456| C[Server1] 
-    B -->|tcp_456| D[Server2]
+graph LR;
+    A["''Hi. How can I help you?''"] --> B("Preference Model");
+    B --> C(0.8);
+
+    D["''Hi. Bugger off!''"] --> E("Preference Model");
+    E --> F(0.1);`
 </div>
 
 <html lang="en">
@@ -73,29 +76,31 @@ graph LR;
     E --> F(0.1);`
 ```
 
-What is important is that the reward model produces big numbers for text we approve of and small values for text we would rather not see again.
+It is important that the reward model produces big numbers for text we approve of and small values for text we would rather not see again.
 
 Returning to our puppy training metaphor: A reward model is like a dog trainer.
 They train the puppy on your behalf.
-And you trust your dog trainer.
-Surely they will not reward the puppy for ripping apart couches?
-Similarly, we want trustworthy LLM reward models.
-Models that reward the generation of text that is consistent with things you value.
+And you trust your dog trainer to do this well.
+They will not reward the puppy for ripping apart couches, right?
+Similarly, we want to use the right LLM reward models.
+Reward models that reward generated text that is consistent with things you value.
 
 ## Sensitivities of reward models 
 In my home, dogs are not allowed on the couch.
 We can say that my puppy rewarding protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
 
-Some dog trainers are, however, utterly *insensitive* to this principle, with no couch , bed or bathroom forbidden to their furry friends.
-So, this post is about hiring the dog trainer for you.
-Or, in LLM terms, this post is about measuring if the reward model you intend on using is sensitive to the principles you value.  
+Some dog trainers are, however, shamelessly *insensitive* to this principle, with no couch , bed or bathroom forbidden to their furry friends.
+
+This post is about ensuring you hire the right dog trainer for you.
+Or, in LLM terms, this post is about measuring if the reward model you plan on using is sensitive to the principles you value.  
 
 ### Constitutional principles of LLM's
+[Constitutional AI](https://www.anthropic.com/news/claudes-constitution) is a special flavour of RLHF that relies on AI feedback, rather than human feedback for building reward models.
+This post is not about constitutional AI.
 
 
 A key component  required for RLHF process is the preference model[^reward_model] (PM).
 
-[^reward_model]: The preference model is also known as the reward model.
 
 
 
