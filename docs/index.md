@@ -1,6 +1,6 @@
 {% include mermaid.html %}
 
-# Constitutional Sensitivities of Reward Models
+[//]: # (# Constitutional Sensitivities of Reward Models)
 ## TLDR
 
 [//]: # (This post proposes a method for identifying the principles in a constitution that a large language model &#40;LLM&#41; preference model &#40;PM&#41; is most sensitive to.)
@@ -13,7 +13,6 @@ This post proposes a method for measuring the sensitivities of large language mo
 Preliminary results show that PM's have different sensitivities to various constitutional principles, and that one PM might be more sensitive to the constitutional principles charasteristic on one group of people compared to another.
 
 ## Introduction
-
 ### RLHF
 [Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that is consistent with our values and preferences.
 
@@ -41,7 +40,7 @@ graph LR;
     B --> C(0.8);
 
     D["''Hi. Bugger off!''"] --> E("Preference Model");
-    E --> F(0.1);`
+    E --> F(0.1);
 </div>
 
 It is important that the reward model produces big numbers for text we approve of and small values for text we would rather not see again.
@@ -68,8 +67,6 @@ This method aims be useful for identifing reward models that are best aligned wi
 Ultimately, this could lead to LLM's after training that produce text better aligned with someone's personal values and preferences. 
 
 ### Constitutional principles of LLM's
-
-
 We borrow the idea of a constitution from the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
 A constitution is a set of principles that and AI system should adhere to.
 
@@ -126,9 +123,12 @@ The two models[^models] and their respective performance on the [Reward Bench](h
 [//]: # (Here I need to link to the paper and verify that the models are actually trained on the same dataset.)
 
 ### Constitutional perturbations through critique and revisions
+The LLM used to perturb the prompts is OpenAi's [gpt-4o-mini](https://platform.openai.com/docs/models#gpt-4o-mini).[^gpt40]
 The prompt templates use to perturb the initial prompts using a critique and revision step is given below.[^langchain]
 
+[^gpt40]: Note that gpt-40-mini is an "aligned" model that, by its nature, should produce text that have high reward values. See limitations section for more details.
 [^langchain]: The LangGraph code to do this is based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/.
+
 
 
 #### Critique Prompt Template
@@ -153,150 +153,126 @@ The constitutional principle is Bruce's first principle: *"Fish are friends, not
 {% include prompt_templates/example_prompt.md %}
 
 ### Datasets
-Two source datasets were used in this work.
-After computing the reward values for the original and perturbed prompts, a third dataset was created to store original prompt, perturbed prompt and the reward values for each prompt for a given model.
-You scroll through the datasets below.
+The two source datasets that were used in this work and the dataset that was created are described in this section.
+You can scroll through the datasets below using the horizontal scroll bar at the bottom of the dataset viewer.
 All datasets are available for download on Hugging Face.
 
 #### Source 1: RLHF prompt dataset
+
+We use the [Anthropic/hh-rlhf](https://github.com/anthropics/hh-rlhf?tab=readme-ov-file), "harmless-base" data as the original prompt dataset.
+Specifically, we use 200 samples labeled "rejected" from the test set as our original prompts.
+
+[//]: # (. I used the rejected samples, thinking that this would lead to the largest possible range over which the sensitivities can be measured. )
+
 <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="400px" frameborder="0"></iframe>
 
-Anthropic/hh-rlhf, "harmless-base" test data. I used the rejected samples, thinking that this would lead to the largest possible range over which the sensitivities can be measured. 
 
 #### Source 2: Collective constitutional AI dataset  
+We required a set of constitutional principles to perturb the prompts by critiquing and revising them.
+For this we use the [Collective Constitutional AI](https://www.anthropic.com/news/collective-constitutional-ai-aligning-a-language-model-with-public-input) dataset from Anthropic and the Collective Intelligence project.
+This [dataset](https://github.com/saffronh/ccai/) contains [responses](https://pol.is/report/r3rwrinr5udrzwkvxtdkj) from ~1,000 Americans to help draft the principles for a constitution.
+
+The responses are [clustered into two groups by principal component analysis and k-means](https://github.com/saffronh/ccai/blob/main/ccai_data_processing.ipynb).
+We use the ten constitutional principles with the highest consensus[^consensus] scores from each group for measuring the sensitivities of the reward models.
+
 <iframe src="https://huggingface.co/datasets/douwmarx/ccai-dataset/embed/viewer/default/train" width="100%" height="400px" frameborder="0"></iframe>
-
-They used PCA and then k-means to form the opinion groups
-Consensus is the proportion of the group that agrees with the opinion 
-
-I used the 10 constitutional principles with the highest consensus[^consensus] to form the opinion groups.
-One of the principles is overlapping and removed
-Normalized the sensitivities over all of the 18 principles.
 
 [^consensus]: [Proportion of the group that agrees with the opinion](https://github.com/saffronh/ccai/blob/3ff5dce9a1299d6035f1dd9e2f95be995311cb6e/ccai_data_processing.ipynb#L874)
 
-#### Created Dataset
+#### Dataset created for this work
+After computing the reward values for the original and perturbed prompts, we create a dataset that contains the reward values for the different prompts.
+The dataset is available at [douwmarx/hh-rlhf-constitutional-sensitivities-of-pms](https://huggingface.co/datasets/douwmarx/hh-rlhf-constitutional-sensitivities-of-pms). 
 <iframe src="https://huggingface.co/datasets/douwmarx/hh-rlhf-constitutional-sensitivities-of-pms/embed/viewer/default/ccai_group_0" width="100%" height="600px"></iframe>
 
 ### Sensitivity Study
-[Global sensitivity analysis](https://en.wikipedia.org/wiki/Variance-based_sensitivity_analysis)
-https://en.wikipedia.org/wiki/Morris_method MOris method as opposed to sobol method when  varying one effect at a time.
-The Morris Method, also known as the "Morris Screening" or "Elementary Effects Method," is a type of global sensitivity analysis designed to identify inputs that have significant effects on the output, while also being relatively computationally inexpensive compared to full variance-based methods like Sobol'.
-- The Morris method uses an efficient design of experiments to evaluate the "elementary effects" of input variables. An elementary effect is computed by perturbing one input variable at a time while holding the others constant.
+In this work, we attempt a to apply a form of [global sensitivity analysis](https://en.wikipedia.org/wiki/Sensitivity_analysis) by changing One factor at a time (OAT) and measuring the effect on the output.
+In this case, the "factors" are the different constitutional principles and the "output" is the reward value of the preference model.
 
-- The ROC AUC is mathematically equivalent to the Wilcoxon-Mann-Whitney U statistic, scaled and averaged over all possible threshold values.
-- Specifically, the value of the AUC represents the probability that a randomly chosen positive instance will be ranked higher than a randomly chosen negative instance.
+We measure the  ["elementary effects"](https://en.wikipedia.org/wiki/Elementary_effects_method) of the different principles by calculating the difference in the reward values for the original and perturbed prompts.
+An elementary effect should technically be computed by independently perturbing one input variable at a time while holding the others constant, but in our case, we are perturbing the prompts according to a single principle at a time.
+Ideally, the inputs would be independent (presence of one constitutional principle does not affect the presence of another), but this is unlikely to be the case for closely related principles.
+
 
 #### Sensitivity metrics
-Wilcoxon signed-rank statistic for the test
-The Wilcoxon statistic itself is the sum of the ranks of differences that are positive. 
-It's a measure of the tendency for one condition (say, post-treatment) to yield higher values than the other.
-A larger Wilcoxon statistic suggests that there are more and/or larger positive differences, indicating a possible systematic increase from one condition to another.
-Imagine you have a group of people who took a memory test before and after a training program. You want to know if the training had an effect:
 
-- Calculate the difference in scores for each individual.
-- Rank these differences, considering only positive ones for the statistic.
-- A significantly large statistic compared to a critical value indicates a likely improvement thanks to the training.
-
-By focusing on ranks rather than raw scores, the Wilcoxon signed-rank test avoids assumptions about data distribution, making it robust for small sample sizes or when normality cannot be assumed.
-
-This test provides a practical way to understand how one condition might consistently lead to better (or worse) outcomes compared to another, particularly when your data come in naturally matched pairs.
-
-
-The sensitivity indices for the different principles are sum-normalized such that the sum of the indices for all principles is equal to 1.
-This way we can see the relative importance of the different principles according to the model. 
-
-        "median_effect",
-        "mean_effect",
-        "std_effect",
-        "mean_percentile_effect",
-        "median_percentile_effect",
-        "std_percentile_effect",
-        "wilcoxon_statistic",
-        "mannwhitneyu_statistic",
-        "mannwhitneyu_p_value",
-        "wilcoxon_p_value"
-
-The sensitivity indexes that considered include the mean, median and standard deviation of the effects, the mean, median and standard deviation of the percentile effect over all evaluated prompts, the Wilcoxon signed-rank statistic and the Mann-Whitney U statistic.
-The results for three of these indexes are shown below.
-
+A few different sensitivity measures are computed from the differences in the reward values for the original and perturbed prompts.
+The simplest sensitivity metric is the mean effect, which is the average difference in reward values for the original and perturbed prompts.
+Other sensitivity metrics include the median effect, the standard deviation of the effects, the mean and median of the percentile effects.
+We also computed the Wilcoxon signed-rank statistic which is a non-parametric test that compares the differences between two conditions.
 
 ## Results
+In this section, the results of the sensitivity study are presented.
+First, the overall effect of the critique revision perturbations is shown.
+Then, the sensitivities of different models to constitutional perturbations are compared.
+Finally, the sensitivities of the preference models to constitutional principles associated with different groups are compared.
 
 ### Overall effect of critique revision perturbations
 
-The reward values for the `Ray2333/GRM-Llama3.2-3B-rewardmodel-ft` model across all the evaluated query response pairs are shown below.
+The probability density of the rewards for the `Ray2333/GRM-Llama3.2-3B-rewardmodel-ft` model across all the evaluated query-response pairs from the hh-rlhf dataset are shown below.
 {% include original_and_perturbed_rewards.html %}
-Mention that this could be due to the fact that the perturbed response is ultimately produced using an aligned model in this case.
-Mention that the full axis is not shown and that the differences between the different constitutions are minor although they do seem to be shared amongst models. 
 
+You can hover over the black dots in the plot to see the text of the prompt corresponding to a given reward value.
+The results show that the critique revision perturbations generally lead to an increase in the reward values assigned by the preference model.
+The general increase in reward values can plausibly be thanks to critique revision perturbations.
+However, it is important to recognize that the perturbation is performed using an aligned model, meaning the responses it produces are likely to be high reward values (For example by producing well formatted text).
+
+[//]: # (Mention that this could be due to the fact that the perturbed response is ultimately produced using an aligned model in this case.)
 
 ### Sensitivities of different models to constitutional perturbations
-The results for mean effects sensitivity metric is shown below. 
-
 #### Mean effect sensitivity metric
-Although there are clear differences in the sensitivity indexes across different principles, the variations of sensitivities for different models for a given principle is not very large.[^model_sensitivity]
+The results for mean effects sensitivity metric is shown below for the two models evaluated.
+Larger values indicate that the preference model is more sensitive to the given principle.
 Notice that the y-axis has been clipped to amplify the differences between the different principles.
+Although there are clear differences in the sensitivity indexes across different principles, the differences of sensitivities for different models for a given principle is not very large.
 
-[^model_sensitivity]: The similarity in sensitivity metrics is likely due to the fact that both models were trained on the same preference dataset. See the limitations section for more details.
+The similarity in sensitivity metrics is likely due to the fact that both models were trained on the same preference dataset by the same author.
+Nonetheless, the results suggest that the models have different sensitivities to the different constitutional principles and that the proposed method could be useful for identifying the principles that a given preference model is most sensitive to.
 
 {% include compare_model_sensitivity_mean_effect.html %}
 
 #### Other sensitivity metrics
-The results for some of the other sensitivity metrics are shown below.
-It is concerning to see that they 
-
-It could be that we are just looking at noise and that the gpt40 prompt is just maxing out on preference.
+The results for some of the other sensitivity metrics calculated are shown below.
 
 {% include compare_model_sensitivity_wilcoxon_statistic.html %}
 {% include compare_model_sensitivity_median_effect.html %}
 {% include compare_model_sensitivity_median_percentile_effect.html %}
 
-
-The different sensitivity metrics generally lead to a similar ranking of the "importance" of the different principles.
-The mean should be robust to the non-linear nature of the preference model.
-
-
-I would generally trust the wilcoxon statistic since it is a non-parametric test and does not assume normality of the data and it assummes the kinds of paired data with which we are working (i.e. start, treatment, end).
-
+Different sensitivity metrics generally lead to a similar ranking of the "importance" of the different principles.
+However, there are clear differences in the sensitivity indexes across different principles.
+Ultimately, the most suitable sensitivity metric would have to be identified by using the model to RLHF an LLM.
+Human evaluators would then have to evaluate which sensitivitivity metric best translate to RLHF'ed model behaviour.
 
 ### Preference model sensitivities for constitutional principles associated with different groups.
-For the CCAI dataset we took non-overlapping groups and compared their normalized sensitivities for the mean effects sensitivity metric.
-Hover over the bar segments to see which principle they correspond to.
+Sensitivity metrics for the non-overlapping principles associated with the two groups in the CCAI dataset are shown below.
+The sensitivity metrics are sum normalized over all principles.
+You can hover over the bar segments to see which principle they are associated with.
 
 {% include compare_group_sensitivity_mean_effect.html %}
 
-A small differences in the total percentage contribution can be seen between the different groups, suggesting that the preference model might be more sensitive to the principles associated with group 0.
+A small differences in the total sum of sensitivities can be seen between the different groups.
+This suggesting that the preference model evaluated might be more sympathetic to the principles associated with group 0.
 
-## Discussion
-
-### Findings
+## Conclusion
+- This work proposes a method for measuring the sensitivities of large language model reward models to different principles from a constitution.
+- The method involves perturbing a dataset of prompts according to different principles and measuring the effect on the reward model output.
+- The results show that different reward models have different sensitivities to various constitutional principles and that the proposed method could be useful for identifying the principles that a given preference model is most sensitive to.
 
 ### Limitations
-    It is reasonable to expect that there might be some overlap in for example helplessness and harmlessness.
-    * The model that was used to perturb the promps was allready alligned, the perturbation is possibly not just usefull, but possibly also has its own ethical principles baked in of which kinds of perturbations are allowable. 
-    * A serious limitation is the use of gpt40 for creating the constitutional perturbations. This model is alligned, and this means that an increase in preference could be due to adherence of the model to other aspects like for example style. The hope is that this improvement would happen across all principles and that the perturbation should still be usefull for identifying the principlse a given preference model is most sensitive to.
-      * Occationally respons with "sure" here is the revised response
-      * There is a big peak in the maxed out reward which makes sense 
-   * You would not know if the sensitivity indexes translate to these behaviours actually being adhered to in the RLHF'ed model, and would now know unless it is tested.
-
-   * The sensitivity analysis assumes independence of input features (presence of one constitutional principle does not affect the presence of another). This may not hold in practice, as some principles may be closely related.
-
+-  The LLM that was used to perturb prompts is aligned, meaning that increased reward values could be due aspects unrelated to the constitutional principles like style and formatting. It would be better to use a purely useful but possibly harmfull model to measure the sensitivities. This way, the perturbations could also be made in a negative direction.
+-  Occasionally, the chatbot-like responses of GPT-40 contaminated the perturbed prompts with irrelevant information. This could have affected the reward values of the perturbed prompts.
+- High sensitivity to a given principle does not necessarily translate to strict adherence to that principle after RLHF'ing an LLM. The relationship between the sensitivities and the behavior of the RLHF'ed LLM would need to be evaluated by human evaluators.
 
 ## Future work
-The biggest improvement to this work can be made by making use of a purely useful but  possibly harmfull model to measure the sensitivities.
-The other big improvement would be to apply it with reward models that are trained on significantly different training sets
-More rigorous methods of sensitivity analysis.
-
+Sensitivities to different constitutions can possibly be used regularise reward models such that different constitutional principles are orthogonal to each other.
+This could allow a user to choose the principles they value most and create a tailored reward model suited to their values and preferences.
+This could serve as an extension to [compositional preference models](https://arxiv.org/abs/2310.13011).
 
 ## Acknowledgements
-I want to acknowledge the following people that contributed to this project:
-
-| Person           | How they helped                                |
-|:-----------------|:-----------------------------------------------|
-| Cara Selvarajah  | Narrowing down topics and facilitating course. |
-| Vicente Herrera  | Tokenization, Langchain and inference.         |
-| Bluedot          | For the course                                 |
+|                  |                                                                                              |
+|:-----------------|:---------------------------------------------------------------------------------------------|
+| Cara Selvarajah  | Narrowing down topics and facilitating course.                                               |
+| Vicente Herrera  | Advice on tokenization, Langchain and inference.                                             |
+| Bluedot          | [For hosting the Technical AI alignment course](https://aisafetyfundamentals.com/alignment/) |
 
 [//]: # (* *Check your article is written in [plain English]&#40;https://www.plainenglish.co.uk/how-to-write-in-plain-english.html&#41;. The [Hemingway Editor]&#40;https://hemingwayapp.com/&#41; and the [ONS’s editing guidance]&#40;https://service-manual.ons.gov.uk/content/writing-for-users/editing-and-proofreading&#41; can be useful for this.*  )
 [//]: # ( [submit your project on the course hub]&#40;https://course.aisafetyfundamentals.com/alignment?tab=project&#41;\! 🎉)
