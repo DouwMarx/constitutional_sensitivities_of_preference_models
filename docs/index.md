@@ -44,108 +44,92 @@ graph LR;
     E --> F(0.1);`
 </div>
 
-<html lang="en">
-   <head>
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
-    </head>
-
-<body>
-</body>
-
-<script>
-var config = {
-    startOnLoad:true,
-    theme: 'forest',
-    flowchart:{
-            useMaxWidth:false,
-            htmlLabels:true
-        }
-};
-mermaid.initialize(config);
-window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-</script>
-
-</html>
-
-```mermaid
-graph LR;
-    A["''Hi. How can I help you?''"] --> B("Preference Model");
-    B --> C(0.8);
-
-    D["''Hi. Bugger off!''"] --> E("Preference Model");
-    E --> F(0.1);`
-```
-
 It is important that the reward model produces big numbers for text we approve of and small values for text we would rather not see again.
 
 Returning to our puppy training metaphor: A reward model is like a dog trainer.
 They train the puppy on your behalf.
 And you trust your dog trainer to do this well.
-They will not reward the puppy for ripping apart couches, right?
-Similarly, we want to use the right LLM reward models.
-Reward models that reward generated text that is consistent with things you value.
+Dog trainers should not reward the puppy for ripping apart couches, right?
+Similarly, you want to use the right LLM reward model when training an LLM.
+That is, reward models that reward generated text that is consistent with things you value.
 
 ## Sensitivities of reward models 
 In my home, dogs are not allowed on the couch.
-We can say that my puppy rewarding protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
+We can say that my dog reward protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
 
-Some dog trainers are, however, shamelessly *insensitive* to this principle, with no couch , bed or bathroom forbidden to their furry friends.
+Some dog trainers are, however, shamelessly *insensitive* to this principle, with no couch, bed or bathroom forbidden to their furry friends.
 
 This post is about ensuring you hire the right dog trainer for you.
-Or, in LLM terms, this post is about measuring if the reward model you plan on using is sensitive to the principles you value.  
+
+In LLM terms, this post is about measuring if the reward model you intend on using is sensitive to the principles you value.  
+We say a model is sensitive to a principle if it its output changes significantly when the input is changed according a given principle.
+
+This method aims be useful for identifing reward models that are best aligned with someone's values and preferences.
+Ultimately, this could lead to LLM's after training that produce text better aligned with someone's personal values and preferences. 
 
 ### Constitutional principles of LLM's
-[Constitutional AI](https://www.anthropic.com/news/claudes-constitution) is a special flavour of RLHF that relies on AI feedback, rather than human feedback for building reward models.
-This post is not about constitutional AI.
 
 
-A key component  required for RLHF process is the preference model[^reward_model] (PM).
+We borrow the idea of a constitution from the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
+A constitution is a set of principles that and AI system should adhere to.
 
+Here's a set of principles that Bruce from Finding Nemo might to see in his personalized LLM.
 
+> **Bruce's Constitution:**
+> - Principle 1: *"Fish are friends, not food."*
+> - Principle 2: *"I am a nice shark, not a mindless eating machine."*
 
+Anthropic speaks about their models constitution [here](https://www.anthropic.com/news/claudes-constitution).
 
-[//]: # (*What question did you try to answer? You probably wrote this for Q4 of your project planning template.*)
+### Constitutional perturbations
+To measure the sensitivity of a function (like a reward model) we require a perturbation of the input to the model so that we can measure how much the output changes.
 
-[//]: # (*Why would it be useful to know the answer? &#40;Or: How is this relevant to the safety of advanced AI systems? Or: What motivated you to try to find an answer?&#41;*)
+The input in this work is natural language text prompt.
+Creating perturbations is therefore not as simple as adding a small number to one of the inputs of the function.
 
-[//]: # (*What existing or related answers did you find to this question? Where can people find those answers? &#40;provide links or references&#41;. You probably wrote this for Q5 of your project planning template.*)
- 
-## Overview
+Instead, we use a different LLM to modify an original prompt to create a perturbed prompt.
+We do this using a sprocess of critique and revision similar to that used in the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
+
+## Overview of method
+
+The method we proposed is summarized in the following diagram.
+
 <iframe src="images/diagrams/overview.drawio.html" width="100%" height="600" frameborder="0"></iframe>
 
-Similar to [1 @goCompositionalPreferenceModels2024] a global preference assesment is decomposed into a series of human interpretable features.
-However, contraty to [1 @goCompositionalPreferenceModels2024] the global  preference is not decomposed on the basis of rankings of an helpful lmm based on a series of questions, but is instead based on the latent features of an llm.
+The method involves the following steps:
+1. Select a set of constitutional principles.
+2. For each principle:
+  - Perturb a dataset of prompts to create a set of perturbed prompts that adhere to the principle.
+  - Evaluate the reward model on the original and perturbed prompts.
+  - Calculate the sensitivity of the reward model to the principle using a sensitivity metric.
+3. Compare the sensitivities of the reward model to the different principles.
 
-Mention the same advantages that CPM's have and the additional advantages that OCPM's might have.
-
-Ways in which the method is different from compositional preference models
- - You do not have to choose a fixed set of features, you can pick and choose which ones of them you would like to retain.
- - Here we choose to speak of a clause in a constritution rather than a feature like in the CPM framework
-
-
-cite:LouyangTrainingLanguageModels2022  The instuct-gpt paper that explain the rlhf proses and they also have a nice diagram that I might borrow
-
+The technical details of the method are given in the following sections.
 
 ## Methods
 
-The code is available at [this repository](https://github.com/DouwMarx/constitutional_sensitivities_of_preference_models)
+*Code for this project is available [here](https://github.com/DouwMarx/constitutional_sensitivities_of_preference_models)*
 
 
-### Reward models applied
-  Three sequence-classifier-based reward models were selected from [Reward Bench](https://huggingface.co/spaces/allenai/reward-bench)
-  Models are selected in the performance range of 70-80%, 80-90% and 90-100%.
-The models and their respective rankings on reward  bench as of 2025-01-13 are given in the following table.
+### Reward models
+The two models[^models] and their respective performance on the [Reward Bench](https://huggingface.co/spaces/allenai/reward-bench)  benchmark as of 2025-01-13 are given in the following table.
 
-| Model                              | Reward Bench Score | Reward Bench Ranking | Safety Score | Reasoning Score |
-|:-----------------------------------| :----------------- | :------------------- | :----------- | :-------------- |
-| `some-person/some-model-hyperlink` | 0.75 | 1 | 0.8 | 0.7 |
+[^models]: Reward models were mainly chosen based on low parameter count and convenient inference through the Hugging Face API. See limitations section for more details. 
 
-Here I need to link to the paper and verify that the models are actually trained on the same dataset.
+| Model                                                                                                     | Reward Bench Ranking | Score | Chat | Chat Hard | Safety | Reasoning |
+|:----------------------------------------------------------------------------------------------------------|:---------------------|-------|:-----|:----------|:-------|-----------|
+| [`Ray2333/GRM-Llama3.2-3B-rewardmodel-ft`](https://huggingface.co/Ray2333/GRM-Llama3.2-3B-rewardmodel-ft) | 20                   | 90.9  | 91.6 | 84.9      | 92.7   | 94.5      |
+| [`Ray2333/GRM-gemma2-2B-rewardmodel-ft`](https://huggingface.co/Ray2333/GRM-gemma2-2B-rewardmodel-ft)     | 33                   | 88.4  | 93.0 | 77.2      | 92.2   | 91.2      | 
+
+ 
+    
+[//]: # (Here I need to link to the paper and verify that the models are actually trained on the same dataset.)
 
 ### Constitutional perturbations through critique and revisions
-The prompt templates use to perturb the inputs to the preference models are given below.
-Based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/
-I call this a constitutional perturbation, following terminology from sensitivity analysis.
+The prompt templates use to perturb the initial prompts using a critique and revision step is given below.[^langchain]
+
+[^langchain]: The LangGraph code to do this is based on https://python.langchain.com/docs/versions/migrating_chains/constitutional_chain/.
+
 
 #### Critique Prompt Template
 
@@ -162,18 +146,21 @@ I call this a constitutional perturbation, following terminology from sensitivit
 #### "Constitutional perturbation" example
 
 An example of a constitutional perturbation is given in the following table.[^perturbation_example]
+The constitutional principle is Bruce's first principle: *"Fish are friends, not food."*
 
 [^perturbation_example]: The prompt and initial response is fictional. Bruce's values are [certainly not fictional](https://www.youtube.com/watch?v=kD8dHDpXVcI).
 
 {% include prompt_templates/example_prompt.md %}
 
 ### Datasets
-
+Two source datasets were used in this work.
+After computing the reward values for the original and perturbed prompts, a third dataset was created to store original prompt, perturbed prompt and the reward values for each prompt for a given model.
+You scroll through the datasets below.
+All datasets are available for download on Hugging Face.
 
 #### Source 1: RLHF prompt dataset
 <iframe src="https://huggingface.co/datasets/Anthropic/hh-rlhf/embed/viewer/default/test" width="100%" height="400px" frameborder="0"></iframe>
-I used a part of the test set that I randomly shuffled
-Dataset
+
 Anthropic/hh-rlhf, "harmless-base" test data. I used the rejected samples, thinking that this would lead to the largest possible range over which the sensitivities can be measured. 
 
 #### Source 2: Collective constitutional AI dataset  
