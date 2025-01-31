@@ -1,10 +1,10 @@
-# Constitutional Sensitivities of Preference Models
+# Constitutional Sensitivities of Reward Models
 ## TLDR
 
 [//]: # (This post proposes a method for identifying the principles in a constitution that a large language model &#40;LLM&#41; preference model &#40;PM&#41; is most sensitive to.)
-This post proposes a method for measuring the sensitivities of large language model preference models to different principles from a constitution.
+This post proposes a method for measuring the sensitivities of large language model reward models to different principles from a constitution.
 
-| Constitutional                                                                                                                                 | sensitivities                                                                                | of preference models                                                                           |
+| Constitutional                                                                                                                                 | sensitivities                                                                                | of reward models                                                                               |
 |------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | Principles that an AI system should adhere to. Constitutional, as in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a specific principle? | A model used to align an AI system with human preferences. Text goes in; one number comes out. |
 
@@ -20,37 +20,20 @@ Ask for paw - paw is given - reward with treat.
 Ask not to rip up the couch - proceeds to rips up the couch - give stern look (This is the third time this week Rover!).
 
 The mapping between the dog's behaviour and reward you give it is super important.
-If you reward the dog for ripping up the couch and punishing it for giving its paw, you will end up with a dog that values very different things than you value.
+If you reward the dog for ripping up the couch and punish it for giving its paw, your dog will end up valuing very different from you.
 
 Now exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, "Hi. Bugger off!" should not.
 
-### What is a preference model?
-During training, untamed LLM's produce an overwhelming load of incoherent slop that cannot be manually corrected in a single human lifetime (Like a puppy?).
-Therefore, preference models are used to judge LLM responses on our behalf: Reward the LLM if it produces text that aligns with what we value, don't reward the LLM if it swears like a sailor.
-THis is akin to hiring a dog trainer to train your puppy on your behalf.
-Similar to how you trust your dog trainer not reward your puppy for ripping apart your couch, you need to trust your LLM reward model to reward your LLM to produce text that aligns with what you value.
+### Reward models
+During training, untamed LLM's produce an overwhelming load of undesirable slop that cannot manually be judged in a signle human lifetime.
+So, we use rewards models to do this on our behalf: Text goes in, one number comes out.
 
-## Sensitivities of models 
-In my home, dogs are not allowed on the couch.
-You can say that the way I reward puppy behaviour is "sensitive" to the principle "Dogs are not allowed on the couch".
-I am sure there are many dog trainers that are "insensitive" to this principle and that welcome their dogs on the couch.
-This post is about hiring the right dog trainer for your puppy.
-
-
-Remember, in this elaborate metaphor, 
-
-You can think of a preference model as a "function" that takes in some text, and spits out one number that is proportional to how preferable a given LLM's response was.
-
-<!DOCTYPE html>
 <html lang="en">
    <head>
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
     </head>
-	 
+
 <body>
- <pre><code class="language-mermaid">graph LR
-A--&gt;B
-</code></pre>
 </body>
 
 <script>
@@ -68,6 +51,9 @@ window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 
 </html>
 
+In this work, a reward model can be thought of as a "function" that takes in some text, and spits out a number that should be proportional to how preferable a given LLM's response was.
+
+
 ```mermaid
 graph LR;
     A["''Hi. How can I help you?''"] --> B("Preference Model");
@@ -78,16 +64,20 @@ graph LR;
 ```
 
 
-```mermaid
-graph LR;
-    A["Hi. How can I help you"] --> B["Preference Model"];
-    B --> C["0.8"];
-```
-```mermaid
-graph LR;
-    A["Hi. Bugger off"] --> B["Preference Model"];
-    B --> C["0.1"];
-```
+
+
+This is akin to hiring a dog trainer to train your puppy on your behalf.
+Similar to how you trust your dog trainer not reward your puppy for ripping apart your couch, you need to trust your LLM reward model to reward your LLM to produce text that aligns with what you value.
+
+## Sensitivities of models 
+In my home, dogs are not allowed on the couch.
+You can say that the way I reward puppy behaviour is "sensitive" to the principle "Dogs are not allowed on the couch".
+I am sure there are many dog trainers that are "insensitive" to this principle and that welcome their dogs on the couch.
+This post is about hiring the right dog trainer for your puppy.
+
+
+Remember, in this elaborate metaphor, 
+
 
 
 ### LLM Constitutions 
