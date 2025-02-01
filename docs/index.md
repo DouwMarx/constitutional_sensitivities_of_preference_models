@@ -1,4 +1,4 @@
-[//]: # ({% include mermaid.html %})
+{% include mermaid.html %}
 
 [//]: # (# Constitutional Sensitivities of Reward Models)
 ## TLDR
