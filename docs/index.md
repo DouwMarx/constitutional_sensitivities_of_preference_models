@@ -267,11 +267,12 @@ This could allow users to choose the principles they value most and create a rew
 This proposal could serve as an extension to [compositional preference models](https://arxiv.org/abs/2310.13011).
 
 ## Acknowledgements
-|                  |                                                                                              |
-|:-----------------|:---------------------------------------------------------------------------------------------|
-| Cara Selvarajah  | Narrowing down topics and facilitating the course.                                               |
-| Vicente Herrera  | Advice on tokenization, Langchain and inference.                                             |
-| Bluedot          | [For hosting the Technical AI alignment course](https://aisafetyfundamentals.com/alignment/) |
+
+|                 |                                                                                              |
+|:----------------|:---------------------------------------------------------------------------------------------|
+| Cara Selvarajah | Narrowing down topics and facilitating the course.                                           |
+| Vicente Herrera | Advice on tokenization, Langchain and inference.                                             |
+| Bluedot         | [For hosting the Technical AI alignment course](https://aisafetyfundamentals.com/alignment/) |
 
 [//]: # (* *Check your article is written in [plain English]&#40;https://www.plainenglish.co.uk/how-to-write-in-plain-english.html&#41;. The [Hemingway Editor]&#40;https://hemingwayapp.com/&#41; and the [ONS’s editing guidance]&#40;https://service-manual.ons.gov.uk/content/writing-for-users/editing-and-proofreading&#41; can be useful for this.*  )
 [//]: # ( [submit your project on the course hub]&#40;https://course.aisafetyfundamentals.com/alignment?tab=project&#41;\! 🎉)
