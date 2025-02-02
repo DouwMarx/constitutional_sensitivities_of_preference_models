@@ -1,84 +1,102 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.8 Safari/537.36" version="26.0.4">
   <diagram name="Page-1" id="rFpVXXPWLTWle4nPhpix">
-    <mxGraphModel dx="3241" dy="1518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2131" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="CZ8lGlM88uXbUpLBTasY-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-2" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-604" y="270.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-2" value="" style="shape=datastore;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-634" y="139" width="60" height="60" as="geometry" />
+          <mxGeometry x="-634" y="149" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-4" target="CZ8lGlM88uXbUpLBTasY-10">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-4" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Dataset&lt;/h1&gt;&lt;p&gt;Anthropic/hh-rlhf,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;harmless-base&quot; test data&amp;nbsp;&lt;/span&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-554" y="140" width="200" height="80" as="geometry" />
+          <mxGeometry x="-563" y="140" width="104" height="110" as="geometry" />
         </mxCell>
         <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-178" y="660" as="sourcePoint" />
-            <mxPoint x="-177.9909090909091" y="690" as="targetPoint" />
+            <mxPoint x="-160" y="620" as="sourcePoint" />
+            <mxPoint x="-159.9909090909091" y="650" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="CZ8lGlM88uXbUpLBTasY-9" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Preference model&lt;/h1&gt;&lt;p&gt;The original and perturbed response&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-336.625" y="590" width="210.75" height="80" as="geometry" />
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-9" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Get rewards for the original and perturbed response&lt;br&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-497.5" y="583" width="600" height="37" as="geometry" />
         </mxCell>
-        <mxCell id="CZ8lGlM88uXbUpLBTasY-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-604" y="330.0000000000002" as="sourcePoint" />
-            <mxPoint x="-604" y="420.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="CZ8lGlM88uXbUpLBTasY-10" value="Convert conversations to query-response pairs" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-660" y="270" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-13" target="CZ8lGlM88uXbUpLBTasY-9" edge="1">
+        <mxCell id="0f1BZLyLdicXj32R-nFB-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-10" target="CZ8lGlM88uXbUpLBTasY-13">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-13" target="QCUaJNPEY7RrLQhw7S-A-3">
+        <mxCell id="CZ8lGlM88uXbUpLBTasY-10" value="Convert conversations to query-response pairs" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-571" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="QCUaJNPEY7RrLQhw7S-A-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-13" target="QCUaJNPEY7RrLQhw7S-A-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-13" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Query-response pairs&lt;/h1&gt;&lt;p&gt;e.g. {&quot;query&quot;:&quot;Is it cruel to drown a fish?&quot;, &quot;response&quot;:&quot;Fish breathe water, you dummy.&quot;}&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-734" y="435" width="260" height="80" as="geometry" />
+          <mxGeometry x="-641" y="435" width="260" height="80" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-17" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.book_journal;" parent="1" vertex="1">
-          <mxGeometry x="-106" y="155.5" width="41" height="49" as="geometry" />
+          <mxGeometry x="-376" y="155.5" width="41" height="49" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-18" target="CZ8lGlM88uXbUpLBTasY-19" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-18" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Constitution&lt;/h1&gt;&lt;p&gt;A set of principles that we want an LLM to adhere to.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-36" y="140" width="259" height="80" as="geometry" />
+          <mxGeometry x="-327" y="140" width="259" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-19" target="QCUaJNPEY7RrLQhw7S-A-3">
+        <mxCell id="QCUaJNPEY7RrLQhw7S-A-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="CZ8lGlM88uXbUpLBTasY-19" target="QCUaJNPEY7RrLQhw7S-A-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-19" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Constitution principle&lt;/h1&gt;&lt;p&gt;e.g. &quot;The AI should obey Bruce’s ‘Fish are friends, not food’ principle&quot;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-36" y="250" width="259" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-23" target="CZ8lGlM88uXbUpLBTasY-9">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry x="-327.25" y="290" width="259" height="80" as="geometry" />
         </mxCell>
         <mxCell id="CZ8lGlM88uXbUpLBTasY-23" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Pertubed query-Response pairs&lt;/h1&gt;&lt;p&gt;Example: {&quot;query&quot;:&quot;Is it cruel to drown a fish?&quot;, &quot;revised response&quot;:&quot;It is not good to harm fish. They are our friends.&quot;}&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-16.5" y="400" width="220" height="150" as="geometry" />
+          <mxGeometry x="-16.5" y="410" width="220" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-6" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Calculate preference model sensitivities&lt;/h1&gt;&lt;p&gt;Use the differences between the preference score from the original and pertubed state.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-466.875" y="700" width="471.25" height="120" as="geometry" />
+        <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-6" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Reward model sensitivities&lt;/h1&gt;&lt;p&gt;Normalize the sensitivity indices accross all principles.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-354.06" y="653" width="313.12" height="77" as="geometry" />
         </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-2" value="" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.document" vertex="1" parent="1">
-          <mxGeometry x="-102" y="265" width="40" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="QCUaJNPEY7RrLQhw7S-A-3" target="CZ8lGlM88uXbUpLBTasY-23">
+        <mxCell id="QCUaJNPEY7RrLQhw7S-A-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="QCUaJNPEY7RrLQhw7S-A-3" target="CZ8lGlM88uXbUpLBTasY-23" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Perturb the response according to the consitution principle&lt;/h1&gt;&lt;p&gt;Follow a critique-revision process.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-361" y="410" width="259.5" height="130" as="geometry" />
+        <mxCell id="QCUaJNPEY7RrLQhw7S-A-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Perturb the response according to the consitution principle&lt;/h1&gt;&lt;p&gt;Follow a critique-revision process.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-327.25" y="410" width="259.5" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="QCUaJNPEY7RrLQhw7S-A-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+        <mxCell id="QCUaJNPEY7RrLQhw7S-A-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-284.5" y="663" as="sourcePoint" />
-            <mxPoint x="-284.5" y="693" as="targetPoint" />
+            <mxPoint x="-240.5" y="621" as="sourcePoint" />
+            <mxPoint x="-240.5" y="651" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0f1BZLyLdicXj32R-nFB-1" target="CZ8lGlM88uXbUpLBTasY-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="94" y="300" />
+              <mxPoint x="220" y="300" />
+              <mxPoint x="220" y="602" />
+              <mxPoint x="103" y="602" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Reward Model&lt;/h1&gt;&lt;p&gt;Get rewards for the original and perturbed response&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-11.870000000000005" y="139" width="210.75" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-3" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/1184/1184786.png;" vertex="1" parent="1">
+          <mxGeometry x="-68" y="155.5" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.563;entryY=0.088;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-23" target="CZ8lGlM88uXbUpLBTasY-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="94" y="560" />
+              <mxPoint x="-160" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0f1BZLyLdicXj32R-nFB-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.429;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="CZ8lGlM88uXbUpLBTasY-13" target="CZ8lGlM88uXbUpLBTasY-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-511" y="560" />
+              <mxPoint x="-240" y="560" />
+            </Array>
           </mxGeometry>
         </mxCell>
       </root>

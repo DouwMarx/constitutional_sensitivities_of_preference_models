@@ -1,33 +1,34 @@
 {% include mermaid.html %}
 
 [//]: # (# Constitutional Sensitivities of Reward Models)
-## TLDR
+## Summary
 
-This post proposes a method for measuring the sensitivities of large language model reward models to different principles from a constitution.
+This post proposes a method for measuring the sensitivities of large language model (LLM) reward models (RMs) to different principles from a constitution.
 
 | Constitutional                                                                                                                                 | sensitivities                                                                                | of reward models                                                                               |
 |------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | Principles that an AI system should adhere to. Constitutional, as in [Constitutional AI](https://www.anthropic.com/news/claudes-constitution). | How much does the output change when the input is changed according to a specific principle? | A model used to align an AI system with human preferences. Text goes in; one number comes out. |
 
-Preliminary results show that PMs have different sensitivities to various constitutional principles and that one PM might be more sensitive to the constitutional principles characteristic of one group of people than another.
+Preliminary results show that RMs have different sensitivities to various constitutional principles and, that one RM might be more sensitive to the constitution of one group of people than another.
 
 ## Introduction
 ### RLHF
-[Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that is consistent with our values and preferences.
+[Reinforcement learning from human feedback (RLHF)](https://huggingface.co/blog/rlhf) is a popular method for [aligning](https://en.wikipedia.org/wiki/AI_alignment) language models (LLMs) to generate text that reflect our values and preferences.
 
-An essential part of this process involves teaching the LLM to "behave", similar to how you would teach a puppy to behave:
+Part of this process involves teaching the LLM to "behave", similar to how you would teach a puppy to behave:
 Ask for a paw - paw is given - reward with a treat.  
 Ask not to rip the sofa to shreds - proceeds to rip the sofa to shreds - give a stern look.
 
-The mapping between the dog's behaviour and the reward you give it is super important.
+The mapping between the dog's behaviour and the reward given is super important.
 If you reward the dog for shredding the sofa and punish it for giving its paw, your dog will end up valuing things very differently from you.
 
-Now exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, "Hi. Bugger off!" should not.
+Exchange the dog for an LLM - "Hi. How can I help you?" should be rewarded, "Hi. Bugger off!" should not.
+The LLM, like the puppy, is learning from "human feedback".
 
 ### Reward models
-During training, untamed LLMs produce an overwhelming load of undesirable slop that cannot be judged manually in a single human lifetime.
-So, we use rewards models[^reward_models] to do this on our behalf.
-For the purpose of this work, a reward model is basically a function.
+During training by RLHF, untamed LLMs produce an overwhelming load of slop that cannot be judged manually in a single human lifetime.
+So, rewards models[^reward_models] are used to give feedback on our behalf.
+For the purpose of this work, a reward model is essentially a function that measures how preferable a chunk of text is.
 Text goes in. 
 One number comes out.
 
@@ -46,44 +47,47 @@ The reward model must produce big numbers for text we approve of and small value
 
 Returning to our puppy training metaphor, a reward model is like a dog trainer.
 They train the puppy on your behalf.
-And you trust your dog trainer to do this well.
+You trust your dog trainer to do this well.
 Dog trainers should not reward the puppy for ripping apart couches, right?
-Similarly, you want to use the right LLM reward model when training an LLM.
-That is reward models that reward generated text that is consistent with things you value.
+
+Similarly, the right LLM reward model should be used when training an LLM.
+People have different values and preferences and should be able to use reward models that reward generated text that is consistent with things they value.
 
 ## Sensitivities of reward models 
 In my home, dogs are not allowed on the couch.
-We can say that my dog reward protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
+We can say that my dog rewarding protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
 
 Some dog trainers, however, are shamelessly *insensitive* to this principle, with no couch, bed or bathroom forbidden to their furry friends.
 
-This post is about ensuring you hire the right dog trainer for you.
+This work is about hiring the right dog trainer for you.
 
-In LLM terms, this post is about measuring if the reward model you intend on using is sensitive to the principles you value.  
-We say a model is sensitive to a principle if its output changes significantly when the input is changed according to that principle.
+In LLM terms, this post is about measuring if the reward model you intend on using for RLHF is sensitive to the principles you value.  
+We say a model is sensitive to a given principle if its output changes significantly when the input is changed according to that principle.
 
 This method aims to be useful for identifying reward models that best align with a person's values and preferences.
 Ultimately, this could lead to LLMs producing text that is better aligned with someone's personal values and preferences after training. 
 
-### Constitutional principles of LLM's
+### Constitutional principles in LLMs
 We borrow the idea of a constitution from the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
 A constitution is a set of principles that an AI system should adhere to.
+In this work, we measure the sensitivity of a reward model with respect to one of these principles.
 
-Here's a set of principles that Bruce from Finding Nemo might see in his personalized LLM.
+Here's a set of principles that Bruce from Finding Nemo might like to see in his personalized LLM.
 
 > **Bruce's Constitution:**
 > - Principle 1: *"Fish are friends, not food."*
 > - Principle 2: *"I am a nice shark, not a mindless eating machine."*
 
-Anthropic speaks about their model constitution [here](https://www.anthropic.com/news/claudes-constitution).
+On a more serious note, Anthropic speaks about their model constitution [here](https://www.anthropic.com/news/claudes-constitution).
 
 ### Constitutional perturbations
-To measure the sensitivity of a function (like a reward model) we require a perturbation of the input to the model so that we can measure how much the output changes.
+To measure the sensitivity of a function (like a reward model) we typically require a perturbation (small change or deviation) of the input to the model.
+This way the extent to which the output changes for a given change in the input can be measured (the sensitivity).
 
-The input in this work is a natural language text prompt.
-Creating perturbations is therefore not as simple as adding a small number to one of the inputs of the function.
+The input to the reward models in this work is a natural language text prompt.
+Making a perturbation to the input is therefore not as simple as adding a small number to it.
 
-Instead, we use a different LLM to modify an original prompt to create a perturbed prompt.
+Instead, a different LLM is used to modify the original prompt according the the constitutional principle to create a perturbed prompt.
 We do this using a critique and revision process similar to that used in the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
 
 ## Overview of method
@@ -256,7 +260,7 @@ This suggests that the preference model evaluated might be more sympathetic to t
 - The method involves perturbing a dataset of prompts according to different principles and measuring the effect on the reward model output.
 - The results show that different reward models have different sensitivities to various constitutional principles and that the proposed method could be useful for identifying the principles that a given preference model is most sensitive to.
 
-### Limitations
+## Limitations
 -  The LLM that was used to perturb prompts is aligned, meaning that increased reward values could be due to aspects unrelated to the constitutional principles like style and formatting. Using a purely useful but possibly harmful model to measure the sensitivities would be better. This way, the perturbations could also be made in a negative direction.
 -  Occasionally, the chatbot-like responses of GPT-40 contaminated the perturbed prompts with irrelevant information. This could have affected the reward values of the perturbed prompts.
 - High sensitivity to a given principle does not necessarily translate to strict adherence to that principle after RLHF'ing an LLM. Human evaluators would need to evaluate the relationship between the sensitivities and the behaviour of the RLHF'ed LLM.
@@ -276,3 +280,5 @@ This proposal could serve as an extension to [compositional preference models](h
 
 [//]: # (* *Check your article is written in [plain English]&#40;https://www.plainenglish.co.uk/how-to-write-in-plain-english.html&#41;. The [Hemingway Editor]&#40;https://hemingwayapp.com/&#41; and the [ONS’s editing guidance]&#40;https://service-manual.ons.gov.uk/content/writing-for-users/editing-and-proofreading&#41; can be useful for this.*  )
 [//]: # ( [submit your project on the course hub]&#40;https://course.aisafetyfundamentals.com/alignment?tab=project&#41;\! 🎉)
+
+If you have questions or suggestions about this work, please contact me at [douwmarx@gmail.com] or [open an issue on the project repository](https://github.com/DouwMarx/constitutional_sensitivities_of_preference_models/issues)
