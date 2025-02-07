@@ -67,8 +67,10 @@ This work is about hiring the right dog trainer for you.
 In LLM terms, this post is about measuring if the reward model you intend to use for RLHF is sensitive to the principles you value.  
 We say a model is sensitive to a given principle if its output changes significantly when the input is changed according to that principle.
 
-This method aims to be useful for identifying reward models that best align with a person's values and preferences.
-Ultimately, this could lead to LLMs producing text better aligned with someone's personal values and preferences after training. 
+## Why it is nice to know the sensitivity of a reward model to different principles.
+This method aims to help identify a reward model that best aligns with a person's values and preferences.
+It could further be useful as a cheap way to measure whether reward models are adhering to the principles we want them to follow or to diagnose possible causes of misalignment. 
+Ultimately, this could lead to LLMs producing text that is better aligned with someone's values and preferences after training. 
 
 ### Constitutional principles in LLMs
 
@@ -285,6 +287,7 @@ This suggests that the preference model evaluated might be more sympathetic to t
 -  The LLM that was used to perturb prompts is aligned, meaning that increased reward values could be due to aspects unrelated to the constitutional principles like style and formatting. Using a purely useful but possibly harmful model to measure the sensitivities would be better. This way, the perturbations could also be made in a negative direction.
 -  Occasionally, the chatbot-like responses of GPT-40 contaminated the perturbed prompts with irrelevant information. This could have affected the reward values of the perturbed prompts.
 - The two reward models used were trained by [the same author](https://arxiv.org/pdf/2406.10216) using the same dataset.
+- The effectiveness of the method is likely dependent on the dataset that is used to evaluate the reward model sensitivities. If the dataset does not contain any prompts that are incompatible with a given principle, the sensitivity of the reward model to that principle will not easily be measured.
 - High sensitivity to a given principle does not necessarily translate to strict adherence to that principle after RLHF'ing an LLM. Human evaluators would need to evaluate the relationship between the sensitivities and the behaviour of the RLHF'ed LLM.
 
 ## Future work
@@ -295,12 +298,12 @@ This proposal could serve as an extension to [compositional preference models](h
 
 ## Acknowledgements
 
-|                 |                                                                                              |
-|:----------------|:---------------------------------------------------------------------------------------------|
-| Cara Selvarajah | Narrowing down topics and facilitating the course.                                           |
-| Vicente Herrera | Advice on tokenisation, Langchain and inference.                                             |
-| David Marx      | Read and comment on the draft.                                                         | 
-| Bluedot         | [For hosting the Technical AI alignment course](https://aisafetyfundamentals.com/alignment/) |
+|                            |                                                                                              |
+|:---------------------------|:---------------------------------------------------------------------------------------------|
+| Cara Selvarajah            | Narrowing down topics and facilitating the course.                                           |
+| Vicente Herrera            | Advice on tokenisation, Langchain and inference.                                             |
+| David Marx, Tom Dugnoille | Read and comment on the draft.                                                         | 
+| Bluedot                    | [For hosting the Technical AI alignment course](https://aisafetyfundamentals.com/alignment/) |
 
 [//]: # (* *Check your article is written in [plain English]&#40;https://www.plainenglish.co.uk/how-to-write-in-plain-english.html&#41;. The [Hemingway Editor]&#40;https://hemingwayapp.com/&#41; and the [ONS’s editing guidance]&#40;https://service-manual.ons.gov.uk/content/writing-for-users/editing-and-proofreading&#41; can be useful for this.*  )
 [//]: # ( [submit your project on the course hub]&#40;https://course.aisafetyfundamentals.com/alignment?tab=project&#41;\! 🎉)
