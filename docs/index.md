@@ -55,7 +55,7 @@ Dog trainers should not reward the puppy for ripping apart couches, right?
 Similarly, the right LLM reward model should be used when training an LLM.
 People have different values and preferences and should be able to use reward models that reward generated text that is consistent with things they value.
 
-## Sensitivities of reward models 
+### Sensitivities of reward models 
 
 In my home, dogs are not allowed on the couch.
 We can say that my dog rewarding protocol is *sensitive* to the principle: *"Dogs are not allowed on the couch"*.
@@ -67,7 +67,7 @@ This work is about hiring the right dog trainer for you.
 In LLM terms, this post is about measuring if the reward model you intend to use for RLHF is sensitive to the principles you value.  
 We say a model is sensitive to a given principle if its output changes significantly when the input is changed according to that principle.
 
-## Why it is nice to know the sensitivity of a reward model to different principles.
+### Why it is nice to know the sensitivity of a reward model to different principles.
 This method aims to help identify a reward model that best aligns with a person's values and preferences.
 It could further be useful as a cheap way to measure whether reward models are adhering to the principles we want them to follow or to diagnose possible causes of misalignment. 
 Ultimately, this could lead to LLMs producing text that is better aligned with someone's values and preferences after training. 
@@ -97,7 +97,11 @@ Therefore, perturbing the input is not as simple as adding a small number to it.
 Instead, a different LLM is used to modify the original prompt according to the constitutional principle to create a perturbed prompt.
 We do this using a critique and revision process similar to that used in the [Constitutional AI paper](https://arxiv.org/abs/2212.08073).
 
-## Overview of method
+## Methods
+
+*Code for this project is available [here](https://github.com/DouwMarx/constitutional_sensitivities_of_preference_models)*
+
+### Overview of method
 
 The method we proposed is summarised in the following diagram.
 
@@ -114,9 +118,6 @@ The method involves the following steps:
 
 The technical details of the method are given in the following sections.
 
-## Methods
-
-*Code for this project is available [here](https://github.com/DouwMarx/constitutional_sensitivities_of_preference_models)*
 
 ### Reward models
 

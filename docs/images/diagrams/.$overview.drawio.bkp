@@ -53,7 +53,7 @@
           <mxGeometry x="-16.5" y="410" width="220" height="130" as="geometry" />
         </mxCell>
         <mxCell id="yo7FIEzDrIR8Dy8B-Dy1-6" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Reward model sensitivities&lt;/h1&gt;&lt;p&gt;Normalize the sensitivity indices accross all principles.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-433.12" y="653" width="471.25" height="77" as="geometry" />
+          <mxGeometry x="-354.06" y="653" width="313.12" height="77" as="geometry" />
         </mxCell>
         <mxCell id="QCUaJNPEY7RrLQhw7S-A-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="QCUaJNPEY7RrLQhw7S-A-3" target="CZ8lGlM88uXbUpLBTasY-23" edge="1">
           <mxGeometry relative="1" as="geometry" />
